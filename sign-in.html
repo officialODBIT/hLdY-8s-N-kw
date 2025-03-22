@@ -255,7 +255,7 @@
     </div>
 
     <script>
-        // status checker
+        //status checker
         console.log('Loaded 3000');
         // actual js code
         document.addEventListener('contextmenu', function(event) {
@@ -291,29 +291,39 @@
 
         document.getElementById('sign-in-form').addEventListener('submit', async function(event) {
             event.preventDefault();
+
             const specID = document.getElementById('specID').value;
             const pin = document.getElementById('pin').value;
 
-            const data = await fetchSpecData();
+            const specData = await fetchSpecData();
+            const user = specData.find(item => item.spec_id === specID && item.pin === pin);
 
-            // Check if SpecID exists
-            const user = data.find(item => item.spec_id === specID);
-            if (!user || user.pin !== pin) {
-                showPopup('Incorrect SpecID or PIN!');
+            if (user) {
+                document.getElementById('success-popup').style.display = 'block';
             } else {
-                
-                window.location.href = "/home";
+                showPopup("Incorrect SpecID or PIN");
             }
         });
 
         function togglePassword() {
-            const pinField = document.getElementById('pin');
-            const showPasswordCheckbox = document.getElementById('show-password');
-            if (showPasswordCheckbox.checked) {
-                pinField.type = 'text';
+            var pinInput = document.getElementById("pin");
+            if (pinInput.type === "password") {
+                pinInput.type = "text";
             } else {
-                pinField.type = 'password';
+                pinInput.type = "password";
             }
+        }
+
+        function closeMessagePopup() {
+            document.getElementById('message-popup').style.display = 'none';
+        }
+
+        function closeErrorPopup() {
+            document.getElementById('error-popup').style.display = 'none';
+        }
+
+        function closeSuccessPopup() {
+            document.getElementById('success-popup').style.display = 'none';
         }
     </script>
 
