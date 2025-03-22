@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="odbitlogo25.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ODBIT - The best place for your online content">
+    <title>ODBIT | Sign In</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Body and Layout */
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header .logo h1 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        header nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Form Container */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .form-content {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .show-text {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .show-text input {
+            margin-right: 5px;
+        }
+
+        .submit-btn, .request-account {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            background-color: #ffcc00;
+            color: #333;
+        }
+
+        .submit-btn:hover {
+            background-color: #ffaa00;
+        }
+
+        .request-account {
+            background-color: #003366;
+            color: white;
+        }
+
+        .request-account:hover {
+            background-color: #001a33;
+        }
+
+        /* Popup Styles */
+        .popup, .message-popup, .error-popup, .success-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border: 2px solid #000;
+            border-radius: 5px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        .popup button, .message-popup button, .error-popup button, .success-popup button {
+            background-color: #FF0000;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .archive-link {
+            color: #001a33;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .archive-link:hover {
+            color: #ffcc00;
+        }
+
+        .redirect-link a {
+            color: #001a33;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .redirect-link a:hover {
+            color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>ODBIT</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="https://www.odbit.org/home">Home</a></li>
+                    <li><a href="https://www.odbit.org/status">Status</a></li>
+                    <li><a href="https://www.odbit.org/tos">ToS</a></li>
+                    <li><a href="https://www.odbit.org/linksforuseodbit">Social</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="form-container">
+        <div class="form-content">
+            <h2>Sign In</h2>
+            <form id="sign-in-form">
+                <label for="specID">SpecID <span style="color: red;">*</span></label>
+                <input type="text" id="specID" name="specID" required>
+
+                <label for="pin">PIN <span style="color: red;">*</span></label>
+                <input type="password" id="pin" name="pin" required>
+
+                <div class="show-text">
+                    <input type="checkbox" id="show-password" onclick="togglePassword()"> <label for="show-password">Show Text</label>
+                </div>
+
+                <button type="submit" class="submit-btn">Sign In</button>
+                <button type="button" class="request-account" onclick="requestAccount()">Request an Account</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="popup" id="popup">
+        <p>Incorrect or not added to system</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
+
+    <div class="message-popup" id="message-popup">
+        <p>No ongoing investigations</p>
+        <p>No ongoing cases</p>
+        <button onclick="closeMessagePopup()">Close</button>
+    </div>
+
+    <div class="error-popup" id="error-popup">
+        <p>Error 63 <br> 0_xx0002</p>
+        <p>Please try again later.</p>
+        <p>ODBIT &copy; 2025-2026. All rights reserved.</p>
+        <button onclick="closeErrorPopup()">Close</button>
+    </div>
+
+    <div class="success-popup" id="success-popup">
+        <p>Info: This is a successful login attempt. Your session will last until closed or refreshed.</p>
+        <p>Cases ongoing: (0)</p>
+        <br><br>
+        <p>Investigations ongoing (1)</p>
+        <p><a href="https://www.odbit.org/5196end90" style="color: #001a33; text-decoration: none; font-weight: bold;">519648846290 -- March 8th</a></p>
+        <br><br>
+        <p>History: (43)</p>
+        <p><a href="https://www.odbit.org/403forbidden" class="archive-link">Archive</a></p>
+        <button onclick="closeSuccessPopup()">Close</button>
+        <div class="redirect-link" id="redirect-link">
+            <p><a href="https://www.odbit.org/redirectemail" target="_blank">Go to Redirect Email</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            alert('right-clicking is disabled 💀');
+        });
+
+        function showPopup(message) {
+            var popup = document.getElementById('popup');
+            popup.querySelector('p').textContent = message;
+            popup.style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        document.getElementById('sign-in-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var specID = document.getElementById('specID').value;
+            var pin = document.getElementById('pin').value;
+
+            if ((specID === "495739672935" && pin === "6882") || 
+                (specID === "495629572819" && pin === "1396") ||
+                (specID === "495838492486" && pin === "19938") ||
+                (specID === "4925537503891" && pin === "13395")) {
+
+                document.getElementById('success-popup').style.display = 'block';
+                return;
+            }
+
+            showPopup("Incorrect SpecID or PIN");
+        });
+
+        function togglePassword() {
+            var pinInput = document.getElementById("pin");
+            if (pinInput.type === "password") {
+                pinInput.type = "text";
+            } else {
+                pinInput.type = "password";
+            }
+        }
+
+        function requestAccount() {
+            alert("Account request is disabled, please contact support.");
+        }
+
+        function closeMessagePopup() {
+            document.getElementById('message-popup').style.display = 'none';
+        }
+
+        function closeErrorPopup() {
+            document.getElementById('error-popup').style.display = 'none';
+        }
+
+        function closeSuccessPopup() {
+            document.getElementById('success-popup').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
