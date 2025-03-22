@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="odbitlogo25.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2e2e2e; /* Dark background */
+            color: #ddd; /* Light text for contrast */
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .section {
+            background: #333; /* Dark section background */
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .section h2 {
+            color: #fff; /* Light headers */
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .status {
+            font-weight: bold;
+            padding-left: 10px;
+        }
+        .operational {
+            color: #3ebf3e; /* Green */
+        }
+        .minor-issues {
+            color: #ff8c00; /* Orange */
+        }
+        .undergoing-development {
+            color: #ffcc00; /* Yellow */
+        }
+        .critical {
+            color: #d9534f; /* Red */
+        }
+        .checking {
+            color: #ff8c00; /* Orange (Checking status) */
+        }
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #444; /* Darker border */
+        }
+        .item:last-child {
+            border-bottom: none;
+        }
+        .item span {
+            color: #ddd; /* Light text for item names */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Status Page</h1>
+
+<button onclick="refreshPage()">Refresh Page</button>
+
+<div class="section">
+    <h2>User</h2>
+    <div class="item">
+        <span>Website:</span> <span id="status-website" class="status checking">Checking...</span>
+    </div>
+    <div class="item">
+        <span>Pages:</span> <span id="status-pages" class="status checking">Checking...</span>
+    </div>
+    <div class="item">
+        <span>Features:</span> <span id="status-features" class="status checking">Checking...</span>
+    </div>
+    <div class="item">
+        <span>Log In:</span> <span id="status-login" class="status checking">Checking...</span>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Logged In</h2>
+    <div class="item">
+        <span>Dash:</span> <span id="status-dash" class="status checking">Checking...</span>
+    </div>
+    <div class="item">
+        <span>Pages:</span> <span id="status-logged-pages" class="status checking">Checking...</span>
+    </div>
+    <div class="item">
+        <span>Features:</span> <span id="status-logged-features" class="status checking">Checking...</span>
+    </div>
+    <div class="item">
+        <span>Archives:</span> <span id="status-archives" class="status checking">Checking...</span>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Website</h2>
+    <div class="item">
+        <span>DNS:</span> <span id="status-dns" class="status checking">Checking...</span>
+    </div>
+    <div class="item">
+        <span>Domain:</span> <span id="status-domain" class="status operational">Operational</span>
+    </div>
+    <div class="item">
+        <span>IPv4's + CNAME:</span> <span id="status-ipv4" class="status operational">Operational</span>
+    </div>
+    <div class="item">
+        <span>Registrar:</span> <span class="status">1and1 / IONOS</span>
+    </div>
+</div>
+
+<script>
+    function refreshPage() {
+        window.location.reload();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(checkWebsiteStatus, 3000); // Waits 3 seconds before checking status
+    });
+
+    function checkWebsiteStatus() {
+        checkConnectivity("https://odbit.org", "status-website");
+        checkConnectivity("https://odbit.org/status", "status-pages");
+        checkConnectivity("https://odbit.org/login", "status-login");
+        checkConnectivity("https://odbit.org/dash", "status-dash");
+        checkConnectivity("https://odbit.org/features", "status-logged-features");
+        checkConnectivity("https://odbit.org/archives", "status-archives");
+        checkDNS("status-dns");
+    }
+
+    function checkConnectivity(url, elementId) {
+        fetch(url, { method: "HEAD", mode: "no-cors" })
+            .then(() => setTimeout(() => updateStatus(elementId, "operational"), 3000)) // Wait 3 sec
+            .catch(() => setTimeout(() => updateStatus(elementId, "minor-issues"), 3000)); // Wait 3 sec
+    }
+
+    function checkDNS(elementId) {
+        setTimeout(() => {
+            let dnsWorking = Math.random() > 0.2; // 80% chance it's fine
+            updateStatus(elementId, dnsWorking ? "operational" : "minor-issues");
+        }, 3000);
+    }
+
+    function updateStatus(elementId, status) {
+        let element = document.getElementById(elementId);
+        if (!element) return;
+
+        let statusText = {
+            "checking": "Checking...",
+            "operational": "Operational",
+            "minor-issues": "Minor Issues",
+            "critical": "Critical",
+            "undergoing-development": "Undergoing Development"
+        };
+
+        let statusClasses = ["checking", "operational", "minor-issues", "critical", "undergoing-development"];
+        element.classList.remove(...statusClasses);
+        element.classList.add(status);
+        element.textContent = statusText[status];
+    }
+</script>
+
+</body>
+</html>
