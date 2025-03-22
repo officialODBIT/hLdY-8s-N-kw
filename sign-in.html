@@ -7,6 +7,7 @@
     <meta name="description" content="ODBIT - The best place for your online content">
     <title>ODBIT | Sign In</title>
     <style>
+        <style>
         /* General Reset */
         * {
             margin: 0;
@@ -182,6 +183,7 @@
             color: #ffcc00;
         }
     </style>
+    </style>
 </head>
 <body>
 
@@ -270,22 +272,36 @@
             document.getElementById('popup').style.display = 'none';
         }
 
-        document.getElementById('sign-in-form').addEventListener('submit', function(event) {
+        function requestAccount() {
+            alert("Account request is disabled, please contact support.");
+        }
+
+        // Fetch JSON data from kkdhttsje.json
+        async function fetchSpecData() {
+            try {
+                const response = await fetch('kkdhttsje.json');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching SpecIDs and PINs:', error);
+                return [];
+            }
+        }
+
+        document.getElementById('sign-in-form').addEventListener('submit', async function(event) {
             event.preventDefault();
 
-            var specID = document.getElementById('specID').value;
-            var pin = document.getElementById('pin').value;
+            const specID = document.getElementById('specID').value;
+            const pin = document.getElementById('pin').value;
 
-            if ((specID === "495739672935" && pin === "6882") || 
-                (specID === "495629572819" && pin === "1396") ||
-                (specID === "495838492486" && pin === "19938") ||
-                (specID === "4925537503891" && pin === "13395")) {
+            const specData = await fetchSpecData();
+            const user = specData.find(item => item.spec_id === specID && item.pin === pin);
 
+            if (user) {
                 document.getElementById('success-popup').style.display = 'block';
-                return;
+            } else {
+                showPopup("Incorrect SpecID or PIN");
             }
-
-            showPopup("Incorrect SpecID or PIN");
         });
 
         function togglePassword() {
@@ -295,10 +311,6 @@
             } else {
                 pinInput.type = "password";
             }
-        }
-
-        function requestAccount() {
-            alert("Account request is disabled, please contact support.");
         }
 
         function closeMessagePopup() {
