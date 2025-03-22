@@ -7,7 +7,6 @@
     <meta name="description" content="ODBIT - The best place for your online content">
     <title>ODBIT | Sign In</title>
     <style>
-        <style>
         /* General Reset */
         * {
             margin: 0;
@@ -183,7 +182,6 @@
             color: #ffcc00;
         }
     </style>
-    </style>
 </head>
 <body>
 
@@ -257,7 +255,7 @@
     </div>
 
     <script>
-        //status checker
+        // status checker
         console.log('Loaded 3000');
         // actual js code
         document.addEventListener('contextmenu', function(event) {
@@ -293,39 +291,29 @@
 
         document.getElementById('sign-in-form').addEventListener('submit', async function(event) {
             event.preventDefault();
-
             const specID = document.getElementById('specID').value;
             const pin = document.getElementById('pin').value;
 
-            const specData = await fetchSpecData();
-            const user = specData.find(item => item.spec_id === specID && item.pin === pin);
+            const data = await fetchSpecData();
 
-            if (user) {
-                document.getElementById('success-popup').style.display = 'block';
+            // Check if SpecID exists
+            const user = data.find(item => item.spec_id === specID);
+            if (!user || user.pin !== pin) {
+                showPopup('Incorrect SpecID or PIN!');
             } else {
-                showPopup("Incorrect SpecID or PIN");
+                
+                window.location.href = "/home";
             }
         });
 
         function togglePassword() {
-            var pinInput = document.getElementById("pin");
-            if (pinInput.type === "password") {
-                pinInput.type = "text";
+            const pinField = document.getElementById('pin');
+            const showPasswordCheckbox = document.getElementById('show-password');
+            if (showPasswordCheckbox.checked) {
+                pinField.type = 'text';
             } else {
-                pinInput.type = "password";
+                pinField.type = 'password';
             }
-        }
-
-        function closeMessagePopup() {
-            document.getElementById('message-popup').style.display = 'none';
-        }
-
-        function closeErrorPopup() {
-            document.getElementById('error-popup').style.display = 'none';
-        }
-
-        function closeSuccessPopup() {
-            document.getElementById('success-popup').style.display = 'none';
         }
     </script>
 
