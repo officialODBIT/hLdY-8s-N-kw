@@ -1,0 +1,128 @@
+Copyright © 2024 ODBIT
+
+All rights reserved.
+
+You are not permitted to:
+- Copy, reproduce, or use any part of the source code in any form.
+- Extract any parts of the repository for use in other projects, applications, or repositories.
+- Distribute, sell, or share the repository or any part of it in any way.
+- Modify, alter, or create derivative works based on the source code.
+- Use the source code in any way, including in commercial or private projects.
+- Reverse engineer, decompile, or disassemble any part of the repository.
+- Use the repository or any part of the code to develop new software products or services.
+- Redistribute, sublicense, lease, rent, or lend the source code or any part of it.
+- Use the repository to build or train machine learning models, AI systems, or any other data-driven products.
+- Remove or alter any copyright or other proprietary notices within the repository.
+- Use the repository for any illegal, immoral, or harmful purpose.
+- Distribute, share, or publicly display the repository, whether modified or not.
+- Share any part of the repository with third parties in any form.
+- Upload or share any part of the repository to public or private file-sharing platforms.
+- Transfer any part of the repository via peer-to-peer networks or file transfer protocols.
+- Allow others to use, copy, extract, or distribute the code in any manner.
+- Perform any acts that could be seen as infringing on the rights of the repository owner.
+- Create, use, or distribute services that would compete with the original repository.
+- Engage in any activity that circumvents the restrictions placed on the use of this repository.
+- Distribute any modifications of this repository under the same conditions as this license.
+- Use the repository in any project that involves the infringement of intellectual property rights.
+- Sell, rent, or lease any part of the repository in any form, either directly or indirectly.
+- Use the repository in violation of any applicable laws, including copyright and patent laws.
+- Distribute parts of the repository in a manner that competes with the original project.
+- Allow other users to copy, modify, or extract any part of the code or assets.
+- Use the repository as a basis for creating any software or products for resale or profit.
+- Use the repository or any part of it in the development of unauthorized software tools or services.
+- Create any unauthorized derivative works based on the repository.
+- Attempt to gain unauthorized access to any parts of the repository.
+- Redistribute the repository or parts of it to clients, partners, or collaborators.
+- Use the repository or any part of it in any way that could harm the reputation or business of the original author.
+- Combine the repository with other proprietary code in ways that violate the terms of this license.
+- Incorporate any parts of the repository into open-source projects or public codebases.
+- Permit others to use or distribute the repository, directly or indirectly.
+- Extract the code for use in any commercial product without explicit permission from the copyright holder.
+- Enable or facilitate others in violating the terms of this license.
+- Use the repository in any form that could create security vulnerabilities or exploits.
+- Modify the repository in ways that violate copyright laws or create risks for the original author.
+- Publish the repository in any public forum or platform without permission.
+- Use any part of the repository for the purpose of violating any intellectual property rights.
+- Export any part of the repository in violation of export control laws.
+- Allow others to alter or distribute the repository, even if for non-commercial purposes.
+- Use the repository or any part of it as a basis for generating unauthorized content or material.
+- Share or distribute the repository in any way that conflicts with the licensing terms.
+- Submit the repository or any of its parts to any repositories or software platforms without permission.
+- Offer the repository for download or access on any third-party websites or services.
+- Share the repository with any individual or organization who does not agree to this license.
+- Take actions that could jeopardize the intellectual property rights of the repository owner.
+- Publish any part of the repository in books, articles, or any other media form.
+- Transfer ownership or rights to the repository to anyone without prior written consent.
+- Contribute any modifications to the repository without prior approval from the original author.
+- Share any code from the repository in source code repositories or content management systems.
+- Access or attempt to access parts of the repository through unauthorized means.
+- Modify the repository in any way that could result in legal action or copyright violation.
+- Sell or offer any part of the repository for sale or as part of a package.
+- Use the repository in any manner that could affect its performance or security.
+- Repurpose or use the repository in a way that could lead to the loss of data or integrity.
+- Violate the intent of the original author by misusing or distributing the repository in unauthorized ways.
+- Share any information, code, or part of the repository with unauthorized parties.
+- Use any part of the repository in the creation of pirated or unauthorized software.
+- Share, distribute, or sell any compiled binaries derived from the repository without authorization.
+- Modify the repository or parts of it to infringe on other people's intellectual property.
+- Distribute the repository as part of any product that violates copyright or intellectual property rights.
+- Engage in practices that circumvent the restrictions placed on the repository in this license.
+- Violate any of the specified conditions in this license document.
+- Use the repository in any way that undermines the original purpose or goals of the project.
+- Attempt to outsmart or bypass the terms of this agreement in any way.
+- Permit others to copy or alter parts of the repository without written consent from the copyright holder.
+- Distribute the repository to end-users without proper acknowledgment or compliance with this license.
+- Alter any part of the repository for illegal purposes or malicious use.
+- Use the repository or any part of it to infringe upon third-party intellectual property.
+- Take the repository or any part of it and rebrand or relabel it as your own.
+- Use the repository as a resource for creating harmful or disruptive software applications.
+- Engage in reverse engineering or analysis that violates the integrity of the original repository.
+- Host, mirror, or upload the repository to any platform without authorization.
+- Use or permit the use of the repository in cloud-based services, distributed systems, or SaaS without permission.
+- Utilize any part of the repository to engage in malicious activities like hacking or phishing.
+- Use any derived code from the repository to develop or distribute malware, spyware, or other harmful code.
+- Take or attempt to take ownership or control over the intellectual property or assets of the repository.
+- Allow unauthorized parties to use, copy, or distribute parts of the repository without consent.
+- Attempt to breach the terms of the license by creating methods to extract or copy the source code or assets.
+- Introduce any software or modifications to the repository that could undermine the security or privacy of its users.
+- Take advantage of the repository to create unauthorized copies for commercial gain.
+- Use parts of the repository in any manner that discredits the original work or its creator.
+- Upload, publish, or make public any portions of the repository or code, whether modified or not.
+- Engage in actions that could result in the loss of the original author's rights or income from the repository.
+- Create duplicate or counterfeit versions of the repository and distribute them as if they were original works.
+- Publish, sell, or promote the repository or any part of it without consent from the copyright holder.
+- Offer access to the repository or any part of it in any unauthorized or unlawful manner.
+- Use the repository to further any actions that could harm the integrity, reputation, or business of the author.
+- Create, facilitate, or contribute to the development of competing projects that use or are derived from the repository.
+- Attempt to exploit the repository for any form of commercial benefit without prior approval from the copyright holder.
+- Allow others to redistribute, resell, or otherwise distribute parts of the repository for personal gain.
+- Enable or distribute parts of the repository that are not compliant with copyright and intellectual property laws.
+- Engage in any form of unauthorized collaboration with third parties to modify, distribute, or create derivative works.
+- Provide the repository in any form that could confuse users about its origin or the ownership rights of the creator.
+- Re-host, mirror, or distribute any copies of the repository that were not explicitly authorized by the copyright holder.
+- Publish, disclose, or distribute the repository or its parts on any platform without following this license.
+- Share, offer, or grant permission for the redistribution of the repository under any terms inconsistent with this license.
+- Modify, use, or distribute the repository in any way that is harmful or detrimental to the original author or creator.
+- Fail to take action against violations of this license by any other party.
+- Engage in any action that results in the circumvention or evasion of the conditions set forth in this license.
+- Reproduce, replicate, or distribute unauthorized copies of the repository, whether modified or unmodified.
+- Take any steps to bypass or undermine the restrictions this license imposes upon usage, modification, or distribution.
+- Use the repository or any part of it to create works or services that violate the privacy or rights of others.
+- Take or create actions that could result in the termination or revocation of your ability to use the repository.
+- Claim ownership over any parts of the repository without authorization or in violation of this license.
+
+This repository is provided *"as-is"* without any warranties, express or implied, including but not limited to the implied warranties of merchantability or fitness for a particular purpose. 
+
+The copyright holder is not liable for any damage or loss caused by using this code.
+
+If you do not agree with the terms of this license, you are prohibited from accessing, using, or distributing any part of this repository.
+
+For any inquiries, clarifications, or requests for exceptions, contact the copyright holder.
+
+By using or accessing this repository, you agree to fully comply with the terms of this license.
+
+Violating the terms of this license will result in legal consequences, and the copyright holder retains the right to take legal action against any individual or organization that infringes on these rights.
+
+If you want to learn more about the copyright on ODBIT's services and sites, contact ODBIT with the subject being, "COPYRIGHT" -- Make sure it is exactly that, nothing else.
+
+Contact contact@odbit.org, the official ODBIT email.
