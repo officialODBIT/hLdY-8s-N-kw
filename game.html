@@ -3,242 +3,325 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Bird Game</title>
+    <title>Game Hub</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            background-color: #70c5ce;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-
-        canvas {
-            display: block;
-            margin: 0 auto;
-            background-color: #70c5ce;
-            border: 2px solid #000;
-        }
-
-        .game-over {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 40px;
-            color: #fff;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             text-align: center;
+            padding: 20px;
+        }
+
+        .game-container {
             display: none;
         }
 
-        #startButton {
-            padding: 20px 40px;
-            font-size: 20px;
-            background-color: #ff5733;
-            color: white;
-            border: none;
-            border-radius: 5px;
+        .button {
+            background-color: #ffcc00;
+            padding: 15px 25px;
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            margin: 10px;
         }
 
-        #startButton:hover {
-            background-color: #ff2a00;
+        .button:hover {
+            background-color: #ffaa00;
+        }
+
+        #gameMenu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #gameCanvas {
+            border: 2px solid black;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="game-over" id="gameOverText">Game Over! Press Space to Restart</div>
-    <canvas id="gameCanvas" width="320" height="480"></canvas>
-    <button id="startButton">Start Game</button>
+    <h1>Welcome to the Game Hub!</h1>
+    <p>Select a game to play:</p>
+
+    <div id="gameMenu">
+        <button class="button" onclick="showGame('memoryGame')">Memory Card Game</button>
+        <button class="button" onclick="showGame('whackAMole')">Whack-a-Mole</button>
+        <button class="button" onclick="showGame('snakeGame')">Snake Game</button>
+        <button class="button" onclick="showGame('pongGame')">Pong</button>
+    </div>
+
+    <!-- Memory Card Game -->
+    <div id="memoryGame" class="game-container">
+        <h2>Memory Card Game</h2>
+        <div id="memoryBoard"></div>
+        <script>
+            const cardArray = [
+                { name: 'A', img: 'https://via.placeholder.com/100' },
+                { name: 'A', img: 'https://via.placeholder.com/100' },
+                { name: 'B', img: 'https://via.placeholder.com/100' },
+                { name: 'B', img: 'https://via.placeholder.com/100' },
+                { name: 'C', img: 'https://via.placeholder.com/100' },
+                { name: 'C', img: 'https://via.placeholder.com/100' },
+            ];
+
+            let selectedCards = [];
+            let matchedCards = [];
+            let moves = 0;
+
+            function createBoard() {
+                const shuffledArray = cardArray.sort(() => 0.5 - Math.random());
+                const board = document.getElementById('memoryBoard');
+                board.innerHTML = '';
+                shuffledArray.forEach((card, index) => {
+                    const cardElement = document.createElement('div');
+                    cardElement.classList.add('card');
+                    cardElement.setAttribute('data-id', index);
+                    cardElement.style.width = '100px';
+                    cardElement.style.height = '100px';
+                    cardElement.style.backgroundImage = `url(${card.img})`;
+                    cardElement.style.backgroundSize = 'cover';
+                    cardElement.style.display = 'inline-block';
+                    cardElement.style.margin = '10px';
+                    cardElement.addEventListener('click', flipCard);
+                    board.appendChild(cardElement);
+                });
+            }
+
+            function flipCard() {
+                const cardId = this.getAttribute('data-id');
+                this.style.backgroundImage = 'none';
+                this.style.backgroundColor = '#fff';
+                selectedCards.push(cardId);
+
+                if (selectedCards.length === 2) {
+                    setTimeout(() => checkMatch(), 500);
+                }
+            }
+
+            function checkMatch() {
+                const [firstCardId, secondCardId] = selectedCards;
+                if (cardArray[firstCardId].name === cardArray[secondCardId].name) {
+                    matchedCards.push(firstCardId, secondCardId);
+                    alert('Match!');
+                } else {
+                    alert('No match!');
+                    document.querySelectorAll('.card')[firstCardId].style.backgroundImage = `url(${cardArray[firstCardId].img})`;
+                    document.querySelectorAll('.card')[secondCardId].style.backgroundImage = `url(${cardArray[secondCardId].img})`;
+                }
+
+                selectedCards = [];
+                moves += 1;
+            }
+
+            createBoard();
+        </script>
+    </div>
+
+    <!-- Whack-a-Mole Game -->
+    <div id="whackAMole" class="game-container">
+        <h2>Whack-a-Mole</h2>
+        <div id="whackBoard" style="width: 300px; height: 300px; background-color: #eee; margin: 20px auto; position: relative;"></div>
+        <script>
+            const board = document.getElementById('whackBoard');
+            let molePosition = Math.floor(Math.random() * 9);
+            let score = 0;
+
+            function generateMole() {
+                board.innerHTML = '';
+                molePosition = Math.floor(Math.random() * 9);
+                const mole = document.createElement('div');
+                mole.style.position = 'absolute';
+                mole.style.width = '50px';
+                mole.style.height = '50px';
+                mole.style.backgroundColor = 'brown';
+                mole.style.borderRadius = '50%';
+                mole.style.top = `${(molePosition % 3) * 100}px`;
+                mole.style.left = `${Math.floor(molePosition / 3) * 100}px`;
+                mole.addEventListener('click', whackMole);
+                board.appendChild(mole);
+            }
+
+            function whackMole() {
+                score++;
+                alert(`Whacked! Score: ${score}`);
+                generateMole();
+            }
+
+            generateMole();
+        </script>
+    </div>
+
+    <!-- Snake Game -->
+    <div id="snakeGame" class="game-container">
+        <h2>Snake Game</h2>
+        <canvas id="snakeCanvas" width="300" height="300"></canvas>
+        <script>
+            const canvas = document.getElementById('snakeCanvas');
+            const ctx = canvas.getContext('2d');
+            const gridSize = 10;
+            let snake = [{ x: 50, y: 50 }];
+            let direction = 'RIGHT';
+            let food = { x: 80, y: 80 };
+            let score = 0;
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = 'green';
+                snake.forEach(segment => ctx.fillRect(segment.x, segment.y, gridSize, gridSize));
+                ctx.fillStyle = 'red';
+                ctx.fillRect(food.x, food.y, gridSize, gridSize);
+            }
+
+            function moveSnake() {
+                const head = { ...snake[0] };
+
+                switch (direction) {
+                    case 'UP':
+                        head.y -= gridSize;
+                        break;
+                    case 'DOWN':
+                        head.y += gridSize;
+                        break;
+                    case 'LEFT':
+                        head.x -= gridSize;
+                        break;
+                    case 'RIGHT':
+                        head.x += gridSize;
+                        break;
+                }
+
+                snake.unshift(head);
+                if (head.x === food.x && head.y === food.y) {
+                    food = { x: Math.floor(Math.random() * 30) * gridSize, y: Math.floor(Math.random() * 30) * gridSize };
+                    score++;
+                } else {
+                    snake.pop();
+                }
+
+                if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || snake.slice(1).some(s => s.x === head.x && s.y === head.y)) {
+                    alert('Game Over! Score: ' + score);
+                    resetGame();
+                }
+
+                draw();
+            }
+
+            function resetGame() {
+                snake = [{ x: 50, y: 50 }];
+                direction = 'RIGHT';
+                food = { x: 80, y: 80 };
+                score = 0;
+            }
+
+            function changeDirection(event) {
+                const key = event.keyCode;
+                if (key === 37 && direction !== 'RIGHT') direction = 'LEFT';
+                if (key === 38 && direction !== 'DOWN') direction = 'UP';
+                if (key === 39 && direction !== 'LEFT') direction = 'RIGHT';
+                if (key === 40 && direction !== 'UP') direction = 'DOWN';
+            }
+
+            window.addEventListener('keydown', changeDirection);
+            setInterval(moveSnake, 100);
+        </script>
+    </div>
+
+    <!-- Pong Game -->
+    <div id="pongGame" class="game-container">
+        <h2>Pong</h2>
+        <canvas id="pongCanvas" width="500" height="300"></canvas>
+        <script>
+            const pongCanvas = document.getElementById('pongCanvas');
+            const pongCtx = pongCanvas.getContext('2d');
+            let paddleHeight = 100;
+            let paddleWidth = 10;
+            let ballRadius = 10;
+
+            let leftPaddle = { x: 0, y: pongCanvas.height / 2 - paddleHeight / 2 };
+            let rightPaddle = { x: pongCanvas.width - paddleWidth, y: pongCanvas.height / 2 - paddleHeight / 2 };
+            let ball = { x: pongCanvas.width / 2, y: pongCanvas.height / 2, dx: 2, dy: 2 };
+
+            function draw() {
+                pongCtx.clearRect(0, 0, pongCanvas.width, pongCanvas.height);
+                pongCtx.fillStyle = 'green';
+                pongCtx.fillRect(leftPaddle.x, leftPaddle.y, paddleWidth, paddleHeight);
+                pongCtx.fillRect(rightPaddle.x, rightPaddle.y, paddleWidth, paddleHeight);
+                pongCtx.beginPath();
+                pongCtx.arc(ball.x, ball.y, ballRadius, 0, Math.PI * 2);
+                pongCtx.fillStyle = 'red';
+                pongCtx.fill();
+                pongCtx.closePath();
+            }
+
+            function moveBall() {
+                ball.x += ball.dx;
+                ball.y += ball.dy;
+
+                if (ball.y + ballRadius > pongCanvas.height || ball.y - ballRadius < 0) ball.dy = -ball.dy;
+
+                if (ball.x - ballRadius < leftPaddle.x + paddleWidth && ball.y > leftPaddle.y && ball.y < leftPaddle.y + paddleHeight) {
+                    ball.dx = -ball.dx;
+                }
+
+                if (ball.x + ballRadius > rightPaddle.x && ball.y > rightPaddle.y && ball.y < rightPaddle.y + paddleHeight) {
+                    ball.dx = -ball.dx;
+                }
+
+                if (ball.x + ballRadius > pongCanvas.width || ball.x - ballRadius < 0) {
+                    ball.x = pongCanvas.width / 2;
+                    ball.y = pongCanvas.height / 2;
+                    ball.dx = -ball.dx;
+                }
+            }
+
+            function movePaddles() {
+                if (leftPaddle.y < 0) leftPaddle.y = 0;
+                if (leftPaddle.y + paddleHeight > pongCanvas.height) leftPaddle.y = pongCanvas.height - paddleHeight;
+
+                if (rightPaddle.y < 0) rightPaddle.y = 0;
+                if (rightPaddle.y + paddleHeight > pongCanvas.height) rightPaddle.y = pongCanvas.height - paddleHeight;
+            }
+
+            function update() {
+                draw();
+                moveBall();
+                movePaddles();
+            }
+
+            setInterval(update, 10);
+        </script>
+    </div>
 
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const gameOverText = document.getElementById('gameOverText');
-        const startButton = document.getElementById('startButton');
-
-        // Game variables
-        let birdX = 50;
-        let birdY = canvas.height / 2;
-        let birdVelocity = 0;
-        const birdWidth = 20;
-        const birdHeight = 20;
-        
-        // Adjusted gravity and jump height
-        const gravity = 0.3;  // Reduced gravity for slower fall
-        const lift = -8;      // Lower jump height
-
-        // Pipe variables (larger gaps now!)
-        let pipes = [];
-        const pipeWidth = 60;  // Pipe width
-        const pipeGap = 390;   // Increased gap between pipes
-        const pipeSpeed = 2;
-
-        // Game state
-        let gameOver = false;
-        let score = 0;
-        let gameStarted = false;
-
-        // Event listener for bird movement (Keyboard)
-        document.addEventListener('keydown', (event) => {
-            if (event.code === 'Space' && !gameOver && gameStarted) {
-                birdVelocity = lift; // Bird flies upwards when space is pressed
-            }
-
-            if (event.code === 'Space' && gameOver) {
-                restartGame(); // Restart the game if it's over
-            }
-        });
-
-        // Event listener for touch (Mobile support)
-        canvas.addEventListener('touchstart', (event) => {
-            if (!gameOver && gameStarted) {
-                birdVelocity = lift; // Bird flies upwards when screen is tapped
-            }
-
-            if (gameOver) {
-                restartGame(); // Restart the game if it's over
-            }
-        });
-
-        // Event listener to start the game
-        startButton.addEventListener('click', () => {
-            startGame();
-        });
-
-        // Create pipes
-        function createPipe() {
-            const pipeHeight = Math.floor(Math.random() * (canvas.height - pipeGap));
-            pipes.push({
-                x: canvas.width,
-                y: pipeHeight,
-                width: pipeWidth,
-                height: canvas.height - pipeHeight - pipeGap
-            });
+        function showGame(gameId) {
+            const games = document.querySelectorAll('.game-container');
+            games.forEach(game => game.style.display = 'none');
+            const selectedGame = document.getElementById(gameId);
+            selectedGame.style.display = 'block';
         }
 
-        // Move pipes
-        function movePipes() {
-            for (let i = 0; i < pipes.length; i++) {
-                pipes[i].x -= pipeSpeed;
+        window.onload = function() {
+            const gameChoice = prompt("Which game would you like to play?\nMemory Card Game, Whack-a-Mole, Snake Game, Pong");
+            if (gameChoice) {
+                const gameMap = {
+                    "Memory Card Game": "memoryGame",
+                    "Whack-a-Mole": "whackAMole",
+                    "Snake Game": "snakeGame",
+                    "Pong": "pongGame"
+                };
 
-                // Remove pipes that are out of the canvas
-                if (pipes[i].x + pipeWidth <= 0) {
-                    pipes.splice(i, 1);
-                    score++;
-                    i--;
+                const selectedGame = gameMap[gameChoice.trim()];
+                if (selectedGame) {
+                    showGame(selectedGame);
+                } else {
+                    alert("Invalid choice! Please refresh and choose again.");
                 }
             }
-        }
-
-        // Check collisions
-        function checkCollisions() {
-            if (birdY + birdHeight >= canvas.height || birdY <= 0) {
-                gameOver = true;
-                gameOverText.style.display = 'block';
-            }
-
-            for (let i = 0; i < pipes.length; i++) {
-                const pipe = pipes[i];
-                if (birdX + birdWidth > pipe.x && birdX < pipe.x + pipeWidth) {
-                    if (birdY < pipe.y || birdY + birdHeight > pipe.y + pipe.height) {
-                        gameOver = true;
-                        gameOverText.style.display = 'block';
-                    }
-                }
-            }
-        }
-
-        // Update bird position
-        function updateBird() {
-            birdVelocity += gravity;
-            birdY += birdVelocity;
-
-            if (birdY > canvas.height - birdHeight) {
-                birdY = canvas.height - birdHeight;
-            }
-            if (birdY < 0) {
-                birdY = 0;
-            }
-        }
-
-        // Draw bird
-        function drawBird() {
-            ctx.fillStyle = '#FF5733'; // Orange color for the bird
-            ctx.fillRect(birdX, birdY, birdWidth, birdHeight);
-        }
-
-        // Draw pipes
-        function drawPipes() {
-            ctx.fillStyle = '#4CAF50'; // Green color for the pipes
-            for (let i = 0; i < pipes.length; i++) {
-                const pipe = pipes[i];
-                ctx.fillRect(pipe.x, 0, pipe.width, pipe.y); // Upper pipe
-                ctx.fillRect(pipe.x, pipe.y + pipe.height, pipe.width, canvas.height); // Lower pipe
-            }
-        }
-
-        // Draw score
-        function drawScore() {
-            ctx.font = '20px Arial';
-            ctx.fillStyle = '#fff';
-            ctx.fillText('Score: ' + score, 10, 30);
-        }
-
-        // Main game loop
-        function gameLoop() {
-            if (gameOver) return;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
-
-            movePipes();
-            updateBird();
-            checkCollisions();
-
-            drawBird();
-            drawPipes();
-            drawScore();
-
-            // Create a pipe every 90 frames
-            if (frameCount % 90 === 0) {
-                createPipe();
-            }
-
-            frameCount++;
-            requestAnimationFrame(gameLoop); // Keep the game running
-        }
-
-        // Start the game
-        function startGame() {
-            startButton.style.display = 'none'; // Hide the start button once game starts
-            gameStarted = true;
-            gameLoop(); // Start the game loop
-        }
-
-        // Restart game
-        function restartGame() {
-            pipes = [];
-            birdY = canvas.height / 2;
-            birdVelocity = 0;
-            score = 0;
-            gameOver = false;
-            gameOverText.style.display = 'none';
-            frameCount = 0;
-            gameStarted = false;
-            startButton.style.display = 'block'; // Show the start button again
-        }
-
-        let frameCount = 0;
+        };
     </script>
 </body>
 </html>
