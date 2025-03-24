@@ -15,6 +15,11 @@
             background-color: #70c5ce;
             font-family: 'Arial', sans-serif;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
         }
 
         canvas {
@@ -24,7 +29,6 @@
             border: 2px solid #000;
         }
 
-        /* Game Over Text */
         .game-over {
             position: absolute;
             top: 50%;
@@ -35,16 +39,33 @@
             text-align: center;
             display: none;
         }
+
+        #startButton {
+            padding: 20px 40px;
+            font-size: 20px;
+            background-color: #ff5733;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #startButton:hover {
+            background-color: #ff2a00;
+        }
     </style>
 </head>
 <body>
     <div class="game-over" id="gameOverText">Game Over! Press Space to Restart</div>
     <canvas id="gameCanvas" width="320" height="480"></canvas>
+    <button id="startButton">Start Game</button>
 
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const gameOverText = document.getElementById('gameOverText');
+        const startButton = document.getElementById('startButton');
 
         // Game variables
         let birdX = 50;
@@ -55,25 +76,31 @@
         const gravity = 0.6;
         const lift = -15;
 
-        // Pipe variables
+        // Pipe variables (adjusted sizes)
         let pipes = [];
-        const pipeWidth = 50;
-        const pipeGap = 150;
+        const pipeWidth = 60;  // Bigger pipes
+        const pipeGap = 200;   // Wider gap between pipes
         const pipeSpeed = 2;
 
         // Game state
         let gameOver = false;
         let score = 0;
+        let gameStarted = false;
 
         // Event listener for bird movement
         document.addEventListener('keydown', (event) => {
-            if (event.code === 'Space' && !gameOver) {
+            if (event.code === 'Space' && !gameOver && gameStarted) {
                 birdVelocity = lift; // Bird flies upwards when space is pressed
             }
 
             if (event.code === 'Space' && gameOver) {
-                restartGame(); // Restart the game if it’s over
+                restartGame(); // Restart the game if it's over
             }
+        });
+
+        // Event listener to start the game
+        startButton.addEventListener('click', () => {
+            startGame();
         });
 
         // Create pipes
@@ -143,8 +170,8 @@
             ctx.fillStyle = '#4CAF50'; // Green color for the pipes
             for (let i = 0; i < pipes.length; i++) {
                 const pipe = pipes[i];
-                ctx.fillRect(pipe.x, 0, pipe.width, pipe.y);
-                ctx.fillRect(pipe.x, pipe.y + pipe.height, pipe.width, canvas.height);
+                ctx.fillRect(pipe.x, 0, pipe.width, pipe.y); // Upper pipe
+                ctx.fillRect(pipe.x, pipe.y + pipe.height, pipe.width, canvas.height); // Lower pipe
             }
         }
 
@@ -178,6 +205,13 @@
             requestAnimationFrame(gameLoop); // Keep the game running
         }
 
+        // Start the game
+        function startGame() {
+            startButton.style.display = 'none'; // Hide the start button once game starts
+            gameStarted = true;
+            gameLoop(); // Start the game loop
+        }
+
         // Restart game
         function restartGame() {
             pipes = [];
@@ -187,11 +221,11 @@
             gameOver = false;
             gameOverText.style.display = 'none';
             frameCount = 0;
-            gameLoop();
+            gameStarted = false;
+            startButton.style.display = 'block'; // Show the start button again
         }
 
         let frameCount = 0;
-        gameLoop();
     </script>
 </body>
 </html>
