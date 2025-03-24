@@ -81,7 +81,7 @@
         // Pipe variables (larger gaps now!)
         let pipes = [];
         const pipeWidth = 60;  // Pipe width
-        const pipeGap = 250;   // Increased gap between pipes
+        const pipeGap = 790;   // Increased gap between pipes
         const pipeSpeed = 2;
 
         // Game state
@@ -89,13 +89,24 @@
         let score = 0;
         let gameStarted = false;
 
-        // Event listener for bird movement
+        // Event listener for bird movement (Keyboard)
         document.addEventListener('keydown', (event) => {
             if (event.code === 'Space' && !gameOver && gameStarted) {
                 birdVelocity = lift; // Bird flies upwards when space is pressed
             }
 
             if (event.code === 'Space' && gameOver) {
+                restartGame(); // Restart the game if it's over
+            }
+        });
+
+        // Event listener for touch (Mobile support)
+        canvas.addEventListener('touchstart', (event) => {
+            if (!gameOver && gameStarted) {
+                birdVelocity = lift; // Bird flies upwards when screen is tapped
+            }
+
+            if (gameOver) {
                 restartGame(); // Restart the game if it's over
             }
         });
