@@ -3,325 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Hub</title>
+    <title>Advanced Clicker Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f4f4f9;
             text-align: center;
+            margin: 0;
             padding: 20px;
         }
-
-        .game-container {
-            display: none;
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
         }
-
+        .game-section {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 45%;
+        }
+        h2 {
+            font-size: 2rem;
+        }
         .button {
-            background-color: #ffcc00;
-            padding: 15px 25px;
-            font-size: 1.5rem;
+            padding: 15px;
+            font-size: 1.2rem;
             cursor: pointer;
             border-radius: 8px;
-            transition: background-color 0.3s;
             margin: 10px;
+            background-color: #ffcc00;
+            border: none;
+            transition: background-color 0.3s;
         }
-
         .button:hover {
             background-color: #ffaa00;
         }
-
-        #gameMenu {
+        .item {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin: 5px 0;
+            border-radius: 5px;
         }
-
-        #gameCanvas {
-            border: 2px solid black;
-            margin-top: 20px;
+        .item button {
+            background-color: #4caf50;
+            color: white;
+        }
+        .stats {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to the Game Hub!</h1>
-    <p>Select a game to play:</p>
+    <h1>Advanced Clicker Game</h1>
 
-    <div id="gameMenu">
-        <button class="button" onclick="showGame('memoryGame')">Memory Card Game</button>
-        <button class="button" onclick="showGame('whackAMole')">Whack-a-Mole</button>
-        <button class="button" onclick="showGame('snakeGame')">Snake Game</button>
-        <button class="button" onclick="showGame('pongGame')">Pong</button>
+    <div class="stats">
+        <p>Coins: <span id="coinCount">0</span></p>
+        <p>CPS (Clicks per Second): <span id="cps">0</span></p>
     </div>
 
-    <!-- Memory Card Game -->
-    <div id="memoryGame" class="game-container">
-        <h2>Memory Card Game</h2>
-        <div id="memoryBoard"></div>
-        <script>
-            const cardArray = [
-                { name: 'A', img: 'https://via.placeholder.com/100' },
-                { name: 'A', img: 'https://via.placeholder.com/100' },
-                { name: 'B', img: 'https://via.placeholder.com/100' },
-                { name: 'B', img: 'https://via.placeholder.com/100' },
-                { name: 'C', img: 'https://via.placeholder.com/100' },
-                { name: 'C', img: 'https://via.placeholder.com/100' },
-            ];
+    <div class="container">
+        <!-- Click Section -->
+        <div class="game-section">
+            <h2>Click to Earn Coins!</h2>
+            <button class="button" id="clickButton">Click Me!</button>
+        </div>
 
-            let selectedCards = [];
-            let matchedCards = [];
-            let moves = 0;
-
-            function createBoard() {
-                const shuffledArray = cardArray.sort(() => 0.5 - Math.random());
-                const board = document.getElementById('memoryBoard');
-                board.innerHTML = '';
-                shuffledArray.forEach((card, index) => {
-                    const cardElement = document.createElement('div');
-                    cardElement.classList.add('card');
-                    cardElement.setAttribute('data-id', index);
-                    cardElement.style.width = '100px';
-                    cardElement.style.height = '100px';
-                    cardElement.style.backgroundImage = `url(${card.img})`;
-                    cardElement.style.backgroundSize = 'cover';
-                    cardElement.style.display = 'inline-block';
-                    cardElement.style.margin = '10px';
-                    cardElement.addEventListener('click', flipCard);
-                    board.appendChild(cardElement);
-                });
-            }
-
-            function flipCard() {
-                const cardId = this.getAttribute('data-id');
-                this.style.backgroundImage = 'none';
-                this.style.backgroundColor = '#fff';
-                selectedCards.push(cardId);
-
-                if (selectedCards.length === 2) {
-                    setTimeout(() => checkMatch(), 500);
-                }
-            }
-
-            function checkMatch() {
-                const [firstCardId, secondCardId] = selectedCards;
-                if (cardArray[firstCardId].name === cardArray[secondCardId].name) {
-                    matchedCards.push(firstCardId, secondCardId);
-                    alert('Match!');
-                } else {
-                    alert('No match!');
-                    document.querySelectorAll('.card')[firstCardId].style.backgroundImage = `url(${cardArray[firstCardId].img})`;
-                    document.querySelectorAll('.card')[secondCardId].style.backgroundImage = `url(${cardArray[secondCardId].img})`;
-                }
-
-                selectedCards = [];
-                moves += 1;
-            }
-
-            createBoard();
-        </script>
-    </div>
-
-    <!-- Whack-a-Mole Game -->
-    <div id="whackAMole" class="game-container">
-        <h2>Whack-a-Mole</h2>
-        <div id="whackBoard" style="width: 300px; height: 300px; background-color: #eee; margin: 20px auto; position: relative;"></div>
-        <script>
-            const board = document.getElementById('whackBoard');
-            let molePosition = Math.floor(Math.random() * 9);
-            let score = 0;
-
-            function generateMole() {
-                board.innerHTML = '';
-                molePosition = Math.floor(Math.random() * 9);
-                const mole = document.createElement('div');
-                mole.style.position = 'absolute';
-                mole.style.width = '50px';
-                mole.style.height = '50px';
-                mole.style.backgroundColor = 'brown';
-                mole.style.borderRadius = '50%';
-                mole.style.top = `${(molePosition % 3) * 100}px`;
-                mole.style.left = `${Math.floor(molePosition / 3) * 100}px`;
-                mole.addEventListener('click', whackMole);
-                board.appendChild(mole);
-            }
-
-            function whackMole() {
-                score++;
-                alert(`Whacked! Score: ${score}`);
-                generateMole();
-            }
-
-            generateMole();
-        </script>
-    </div>
-
-    <!-- Snake Game -->
-    <div id="snakeGame" class="game-container">
-        <h2>Snake Game</h2>
-        <canvas id="snakeCanvas" width="300" height="300"></canvas>
-        <script>
-            const canvas = document.getElementById('snakeCanvas');
-            const ctx = canvas.getContext('2d');
-            const gridSize = 10;
-            let snake = [{ x: 50, y: 50 }];
-            let direction = 'RIGHT';
-            let food = { x: 80, y: 80 };
-            let score = 0;
-
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = 'green';
-                snake.forEach(segment => ctx.fillRect(segment.x, segment.y, gridSize, gridSize));
-                ctx.fillStyle = 'red';
-                ctx.fillRect(food.x, food.y, gridSize, gridSize);
-            }
-
-            function moveSnake() {
-                const head = { ...snake[0] };
-
-                switch (direction) {
-                    case 'UP':
-                        head.y -= gridSize;
-                        break;
-                    case 'DOWN':
-                        head.y += gridSize;
-                        break;
-                    case 'LEFT':
-                        head.x -= gridSize;
-                        break;
-                    case 'RIGHT':
-                        head.x += gridSize;
-                        break;
-                }
-
-                snake.unshift(head);
-                if (head.x === food.x && head.y === food.y) {
-                    food = { x: Math.floor(Math.random() * 30) * gridSize, y: Math.floor(Math.random() * 30) * gridSize };
-                    score++;
-                } else {
-                    snake.pop();
-                }
-
-                if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || snake.slice(1).some(s => s.x === head.x && s.y === head.y)) {
-                    alert('Game Over! Score: ' + score);
-                    resetGame();
-                }
-
-                draw();
-            }
-
-            function resetGame() {
-                snake = [{ x: 50, y: 50 }];
-                direction = 'RIGHT';
-                food = { x: 80, y: 80 };
-                score = 0;
-            }
-
-            function changeDirection(event) {
-                const key = event.keyCode;
-                if (key === 37 && direction !== 'RIGHT') direction = 'LEFT';
-                if (key === 38 && direction !== 'DOWN') direction = 'UP';
-                if (key === 39 && direction !== 'LEFT') direction = 'RIGHT';
-                if (key === 40 && direction !== 'UP') direction = 'DOWN';
-            }
-
-            window.addEventListener('keydown', changeDirection);
-            setInterval(moveSnake, 100);
-        </script>
-    </div>
-
-    <!-- Pong Game -->
-    <div id="pongGame" class="game-container">
-        <h2>Pong</h2>
-        <canvas id="pongCanvas" width="500" height="300"></canvas>
-        <script>
-            const pongCanvas = document.getElementById('pongCanvas');
-            const pongCtx = pongCanvas.getContext('2d');
-            let paddleHeight = 100;
-            let paddleWidth = 10;
-            let ballRadius = 10;
-
-            let leftPaddle = { x: 0, y: pongCanvas.height / 2 - paddleHeight / 2 };
-            let rightPaddle = { x: pongCanvas.width - paddleWidth, y: pongCanvas.height / 2 - paddleHeight / 2 };
-            let ball = { x: pongCanvas.width / 2, y: pongCanvas.height / 2, dx: 2, dy: 2 };
-
-            function draw() {
-                pongCtx.clearRect(0, 0, pongCanvas.width, pongCanvas.height);
-                pongCtx.fillStyle = 'green';
-                pongCtx.fillRect(leftPaddle.x, leftPaddle.y, paddleWidth, paddleHeight);
-                pongCtx.fillRect(rightPaddle.x, rightPaddle.y, paddleWidth, paddleHeight);
-                pongCtx.beginPath();
-                pongCtx.arc(ball.x, ball.y, ballRadius, 0, Math.PI * 2);
-                pongCtx.fillStyle = 'red';
-                pongCtx.fill();
-                pongCtx.closePath();
-            }
-
-            function moveBall() {
-                ball.x += ball.dx;
-                ball.y += ball.dy;
-
-                if (ball.y + ballRadius > pongCanvas.height || ball.y - ballRadius < 0) ball.dy = -ball.dy;
-
-                if (ball.x - ballRadius < leftPaddle.x + paddleWidth && ball.y > leftPaddle.y && ball.y < leftPaddle.y + paddleHeight) {
-                    ball.dx = -ball.dx;
-                }
-
-                if (ball.x + ballRadius > rightPaddle.x && ball.y > rightPaddle.y && ball.y < rightPaddle.y + paddleHeight) {
-                    ball.dx = -ball.dx;
-                }
-
-                if (ball.x + ballRadius > pongCanvas.width || ball.x - ballRadius < 0) {
-                    ball.x = pongCanvas.width / 2;
-                    ball.y = pongCanvas.height / 2;
-                    ball.dx = -ball.dx;
-                }
-            }
-
-            function movePaddles() {
-                if (leftPaddle.y < 0) leftPaddle.y = 0;
-                if (leftPaddle.y + paddleHeight > pongCanvas.height) leftPaddle.y = pongCanvas.height - paddleHeight;
-
-                if (rightPaddle.y < 0) rightPaddle.y = 0;
-                if (rightPaddle.y + paddleHeight > pongCanvas.height) rightPaddle.y = pongCanvas.height - paddleHeight;
-            }
-
-            function update() {
-                draw();
-                moveBall();
-                movePaddles();
-            }
-
-            setInterval(update, 10);
-        </script>
+        <!-- Shop Section -->
+        <div class="game-section">
+            <h2>Shop</h2>
+            <div id="shopItems"></div>
+        </div>
     </div>
 
     <script>
-        function showGame(gameId) {
-            const games = document.querySelectorAll('.game-container');
-            games.forEach(game => game.style.display = 'none');
-            const selectedGame = document.getElementById(gameId);
-            selectedGame.style.display = 'block';
+        let coins = 0;
+        let cps = 0;
+        let clickValue = 1;
+        let itemCost = 10;
+        let items = [];
+
+        // Create a new item in the shop
+        function createItem(name, cost, cpsIncrease) {
+            const item = {
+                name: name,
+                cost: cost,
+                cpsIncrease: cpsIncrease
+            };
+            items.push(item);
         }
 
-        window.onload = function() {
-            const gameChoice = prompt("Which game would you like to play?\nMemory Card Game, Whack-a-Mole, Snake Game, Pong");
-            if (gameChoice) {
-                const gameMap = {
-                    "Memory Card Game": "memoryGame",
-                    "Whack-a-Mole": "whackAMole",
-                    "Snake Game": "snakeGame",
-                    "Pong": "pongGame"
-                };
+        // Update the shop UI
+        function updateShop() {
+            const shopItemsDiv = document.getElementById('shopItems');
+            shopItemsDiv.innerHTML = '';
 
-                const selectedGame = gameMap[gameChoice.trim()];
-                if (selectedGame) {
-                    showGame(selectedGame);
-                } else {
-                    alert("Invalid choice! Please refresh and choose again.");
-                }
+            items.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('item');
+                itemDiv.innerHTML = `
+                    <span>${item.name} (Cost: ${item.cost} coins)</span>
+                    <button onclick="buyItem('${item.name}')">Buy</button>
+                `;
+                shopItemsDiv.appendChild(itemDiv);
+            });
+        }
+
+        // Buy an item
+        function buyItem(itemName) {
+            const item = items.find(i => i.name === itemName);
+            if (coins >= item.cost) {
+                coins -= item.cost;
+                cps += item.cpsIncrease;
+                updateStats();
+                updateShop();
+            } else {
+                alert('Not enough coins!');
             }
-        };
+        }
+
+        // Update the stats display
+        function updateStats() {
+            document.getElementById('coinCount').textContent = coins;
+            document.getElementById('cps').textContent = cps;
+        }
+
+        // Click button handler
+        document.getElementById('clickButton').addEventListener('click', () => {
+            coins += clickValue;
+            updateStats();
+        });
+
+        // Automatically earn coins based on CPS
+        setInterval(() => {
+            coins += cps;
+            updateStats();
+        }, 1000);
+
+        // Initialize game
+        function initGame() {
+            // Create shop items
+            createItem('Click Booster', 10, 1);  // Increases CPS by 1
+            createItem('Double Clicker', 50, 5); // Increases CPS by 5
+            createItem('Triple Clicker', 100, 10); // Increases CPS by 10
+            updateShop();
+        }
+
+        initGame();
     </script>
 </body>
 </html>
+5
