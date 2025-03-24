@@ -3,170 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ODBIT - The best place for your online content">
-    <title>ODBIT | Home</title>
+    <title>Flappy Bird Game</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
 
         body {
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #70c5ce;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
         }
 
-        /* Header */
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
+        canvas {
+            display: block;
             margin: 0 auto;
-            padding: 0 20px;
+            background-color: #70c5ce;
+            border: 2px solid #000;
         }
 
-        header .logo h1 {
-            font-size: 2rem;
-            letter-spacing: 2px;
-        }
-
-        header nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        header nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-        }
-
-        header nav ul li a:hover {
-            text-decoration: underline;
-        }
-
-        /* Game Area */
-        .game-container {
-            width: 80vw;
-            height: 80vh;
-            margin: 50px auto;
-            border: 5px solid #333;
-            position: relative;
-            background-color: #d0d0d0;
-        }
-
-        .player {
-            width: 50px;
-            height: 50px;
-            background-color: #ff6347;
+        /* Game Over Text */
+        .game-over {
             position: absolute;
-            bottom: 0;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* Footer Section */
-        footer {
-            background-color: #333;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
             color: #fff;
-            padding: 20px 0;
             text-align: center;
-        }
-
-        footer p {
-            font-size: 1rem;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
-    <header>
-        <div class="container">
-            <div class="logo">
-                <h1>ODBIT</h1>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="/sign-in">Portal</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <div class="game-over" id="gameOverText">Game Over! Press Space to Restart</div>
+    <canvas id="gameCanvas" width="320" height="480"></canvas>
 
-    <!-- Game Area -->
-    <div class="game-container">
-        <div class="player" id="player"></div>
-    </div>
-
-    <!-- Footer Section -->
-    <footer>
-        <p>&copy; 2025 ODBIT. All rights reserved.</p>
-    </footer>
-
-    <!-- JavaScript for Platformer -->
     <script>
-        const player = document.getElementById('player');
-        const gameContainer = document.querySelector('.game-container');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const gameOverText = document.getElementById('gameOverText');
 
-        let playerPositionX = 50; // Starting X position (percent of game container width)
-        let playerPositionY = 0;  // Starting Y position (bottom of game container)
-        let velocityY = 0; // Gravity effect
-        let isJumping = false;
+        // Game variables
+        let birdX = 50;
+        let birdY = canvas.height / 2;
+        let birdVelocity = 0;
+        const birdWidth = 20;
+        const birdHeight = 20;
+        const gravity = 0.6;
+        const lift = -15;
 
-        // Game settings
-        const gravity = 0.5;
-        const jumpStrength = -15;
+        // Pipe variables
+        let pipes = [];
+        const pipeWidth = 50;
+        const pipeGap = 150;
+        const pipeSpeed = 2;
 
-        // Move the player
-        function movePlayer() {
-            player.style.left = `${playerPositionX}%`;
-            player.style.bottom = `${playerPositionY}px`;
-        }
+        // Game state
+        let gameOver = false;
+        let score = 0;
 
-        // Handle keyboard input
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                playerPositionX -= 2; // Move left
-                if (playerPositionX < 0) playerPositionX = 0; // Prevent going out of bounds
-            } else if (e.key === 'ArrowRight') {
-                playerPositionX += 2; // Move right
-                if (playerPositionX > 100) playerPositionX = 100; // Prevent going out of bounds
-            } else if (e.key === ' ' && !isJumping) { // Spacebar to jump
-                velocityY = jumpStrength;
-                isJumping = true;
+        // Event listener for bird movement
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'Space' && !gameOver) {
+                birdVelocity = lift; // Bird flies upwards when space is pressed
+            }
+
+            if (event.code === 'Space' && gameOver) {
+                restartGame(); // Restart the game if it’s over
             }
         });
 
-        // Game loop (60 FPS)
-        function gameLoop() {
-            // Apply gravity
-            if (playerPositionY <= 0) {
-                velocityY = 0;
-                isJumping = false;
-            } else {
-                velocityY += gravity;
-            }
-            playerPositionY += velocityY;
-
-            movePlayer();
-            requestAnimationFrame(gameLoop); // Continue the game loop
+        // Create pipes
+        function createPipe() {
+            const pipeHeight = Math.floor(Math.random() * (canvas.height - pipeGap));
+            pipes.push({
+                x: canvas.width,
+                y: pipeHeight,
+                width: pipeWidth,
+                height: canvas.height - pipeHeight - pipeGap
+            });
         }
 
-        gameLoop(); // Start the game loop
+        // Move pipes
+        function movePipes() {
+            for (let i = 0; i < pipes.length; i++) {
+                pipes[i].x -= pipeSpeed;
+
+                // Remove pipes that are out of the canvas
+                if (pipes[i].x + pipeWidth <= 0) {
+                    pipes.splice(i, 1);
+                    score++;
+                    i--;
+                }
+            }
+        }
+
+        // Check collisions
+        function checkCollisions() {
+            if (birdY + birdHeight >= canvas.height || birdY <= 0) {
+                gameOver = true;
+                gameOverText.style.display = 'block';
+            }
+
+            for (let i = 0; i < pipes.length; i++) {
+                const pipe = pipes[i];
+                if (birdX + birdWidth > pipe.x && birdX < pipe.x + pipeWidth) {
+                    if (birdY < pipe.y || birdY + birdHeight > pipe.y + pipe.height) {
+                        gameOver = true;
+                        gameOverText.style.display = 'block';
+                    }
+                }
+            }
+        }
+
+        // Update bird position
+        function updateBird() {
+            birdVelocity += gravity;
+            birdY += birdVelocity;
+
+            if (birdY > canvas.height - birdHeight) {
+                birdY = canvas.height - birdHeight;
+            }
+            if (birdY < 0) {
+                birdY = 0;
+            }
+        }
+
+        // Draw bird
+        function drawBird() {
+            ctx.fillStyle = '#FF5733'; // Orange color for the bird
+            ctx.fillRect(birdX, birdY, birdWidth, birdHeight);
+        }
+
+        // Draw pipes
+        function drawPipes() {
+            ctx.fillStyle = '#4CAF50'; // Green color for the pipes
+            for (let i = 0; i < pipes.length; i++) {
+                const pipe = pipes[i];
+                ctx.fillRect(pipe.x, 0, pipe.width, pipe.y);
+                ctx.fillRect(pipe.x, pipe.y + pipe.height, pipe.width, canvas.height);
+            }
+        }
+
+        // Draw score
+        function drawScore() {
+            ctx.font = '20px Arial';
+            ctx.fillStyle = '#fff';
+            ctx.fillText('Score: ' + score, 10, 30);
+        }
+
+        // Main game loop
+        function gameLoop() {
+            if (gameOver) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+            movePipes();
+            updateBird();
+            checkCollisions();
+
+            drawBird();
+            drawPipes();
+            drawScore();
+
+            // Create a pipe every 90 frames
+            if (frameCount % 90 === 0) {
+                createPipe();
+            }
+
+            frameCount++;
+            requestAnimationFrame(gameLoop); // Keep the game running
+        }
+
+        // Restart game
+        function restartGame() {
+            pipes = [];
+            birdY = canvas.height / 2;
+            birdVelocity = 0;
+            score = 0;
+            gameOver = false;
+            gameOverText.style.display = 'none';
+            frameCount = 0;
+            gameLoop();
+        }
+
+        let frameCount = 0;
+        gameLoop();
     </script>
 </body>
 </html>
