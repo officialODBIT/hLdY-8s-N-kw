@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ODBIT - Federal Communications Commission Regulations</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #282c34;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    h3 {
+      color: #555;
+    }
+
+    button {
+      background-color: #ff6347;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #e53d2b;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      background-color: #282c34;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ODBIT & The Federal Communications Commission</h1>
+  </header>
+
+  <section class="content">
+    <h2>Why We Follow the Federal Communications Commission's Regulations</h2>
+    <p>At ODBIT, we work hard to ensure the safety and integrity of our operations, especially when it comes to the use of phone numbers, toll-free numbers, radio communications, and regular staff communications. To keep things running smoothly and legally, we have to adhere to certain rules set by the <strong>Federal Communications Commission</strong> (FCC).</p>
+
+    <h3>The Role of the FCC</h3>
+    <p>The FCC is responsible for regulating interstate and international communications by radio, television, wire, satellite, and cable. While their regulations are important for maintaining order in the communications landscape, some feel they take a bit too much control over how we operate, imposing restrictions that can sometimes be unnecessarily strict.</p>
+
+    <h3>Why ODBIT Has to Comply</h3>
+    <p>Despite the frustrations we might have, ODBIT must follow these regulations to maintain our legality. Since we handle communications like phone numbers, toll-free numbers, and staff radio broadcasts, we have no choice but to comply. We want to ensure our work is uninterrupted and that we don't fall foul of federal laws.</p>
+
+    <button id="alertBtn">Why is the FCC so strict?</button>
+    <p id="message" class="hidden">While we don't always agree with the FCC's heavy hand, we have to follow their regulations to ensure our operations are lawful and efficient. It can be frustrating, but we continue to work within their rules to support the mission of ODBIT.</p>
+  </section>
+
+  <footer>
+    <p>ODBIT - Online Dater Bureau of Investigation Team. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('alertBtn').addEventListener('click', function() {
+      const message = document.getElementById('message');
+      message.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>
