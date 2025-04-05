@@ -1,241 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1311663690934021"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1311663690934021" crossorigin="anonymous"></script>
     <link rel="icon" href="odbitlogo25.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ODBIT - The best place for your online content">
     <title>ODBIT | Home</title>
     <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        /* Body and Layout */
-        body {
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        /* Header */
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-        }
-
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header .logo h1 {
-            font-size: 2rem;
-            letter-spacing: 2px;
-        }
-
-        header nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        header nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-        }
-
-        header nav ul li a:hover {
-            text-decoration: underline;
-        }
-
-        /* Hero Section */
-        .hero {
-            background-image: url('https://i.imgur.com/7IRCiBM.png');
-            background-size: cover;
-            background-position: center;
-            padding: 100px 0;
-            color: white;
-            text-align: center;
-        }
-
-        .hero-content h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-
-        .cta-btn {
-            background-color: #ffcc00;
-            padding: 12px 25px;
-            color: #333;
-            text-decoration: none;
-            font-size: 1rem;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .cta-btn:hover {
-            background-color: #ffaa00;
-        }
-
-        /* Hiring Banner */
-        .hiring-banner {
-            background-color: #ffcc00;
-            color: #000;
-            padding: 30px;
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        .hiring-banner .join-btn {
-            background-color: #333;
-            color: #fff;
-            padding: 12px 25px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border-radius: 5px;
-            margin-top: 20px;
-            display: inline-block;
-            transition: background-color 0.3s;
-        }
-
-        .hiring-banner .join-btn:hover {
-            background-color: #ffaa00;
-        }
-
-        /* About Section */
-        .about {
-            padding: 50px 20px;
-            text-align: center;
-            background-color: #fff;
-        }
-
-        .about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .about p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 50px 20px;
-            background-color: #eaeaea;
-            text-align: center;
-        }
-
-        .services h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        .services-grid {
-            display: flex;
-            justify-content: space-around;
-            gap: 30px;
-        }
-
-        .service-item {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            width: 30%;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-item h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .service-item p {
-            font-size: 1rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 50px 20px;
-            background-color: #fff;
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        .contact form input,
-        .contact form textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .contact form button {
-            padding: 12px 25px;
-            background-color: #ffcc00;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .contact form button:hover {
-            background-color: #ffaa00;
-        }
-
-        /* Footer Section */
-        footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        footer p {
-            font-size: 1rem;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #f4f4f4; color: #333; }
+        header { background-color: #333; color: #fff; padding: 10px 0; }
+        header .container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header .logo h1 { font-size: 2rem; letter-spacing: 2px; }
+        header nav ul { list-style: none; display: flex; gap: 20px; }
+        header nav ul li a { color: #fff; text-decoration: none; font-size: 1.1rem; text-transform: uppercase; }
+        header nav ul li a:hover { text-decoration: underline; }
+        .hero { background-image: url('https://i.imgur.com/7IRCiBM.png'); background-size: cover; background-position: center; padding: 100px 0; color: white; text-align: center; }
+        .hero-content h2 { font-size: 3rem; margin-bottom: 20px; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 30px; }
+        .cta-btn { background-color: #ffcc00; padding: 12px 25px; color: #333; text-decoration: none; font-size: 1rem; border-radius: 5px; transition: background-color 0.3s; }
+        .cta-btn:hover { background-color: #ffaa00; }
+        .hiring-banner { background-color: #ffcc00; color: #000; padding: 30px; text-align: center; font-size: 2rem; font-weight: bold; }
+        .about, .services, .contact { padding: 50px 20px; text-align: center; }
+        .about { background-color: #fff; }
+        .services { background-color: #eaeaea; }
+        .services-grid { display: flex; justify-content: space-around; gap: 30px; }
+        .service-item { background-color: #fff; padding: 30px; border-radius: 8px; width: 30%; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+        .service-item h3 { font-size: 1.8rem; margin-bottom: 10px; }
+        .service-item p { font-size: 1rem; }
+        .contact form input, .contact form textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+        .contact form button { padding: 12px 25px; background-color: #ffcc00; color: #333; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; transition: background-color 0.3s; }
+        .contact form button:hover { background-color: #ffaa00; }
+        footer { background-color: #333; color: #fff; padding: 20px 0; text-align: center; }
     </style>
 </head>
 <body>
-    <!-- Hiring Banner -->
-    <div class="hiring-banner">
-        WE ARE HIRING! <br>
-        <a href="/join" class="join-btn">Join Now</a> <!-- Replace '/join' with your actual join page link -->
-    </div>
-
-    <!-- Header Section -->
+    <div class="hiring-banner">WE ARE HIRING!</div>
     <header>
         <div class="container">
-            <div class="logo">
-                <h1>ODBIT</h1>
-            </div>
+            <div class="logo"><h1>ODBIT</h1></div>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
@@ -246,8 +50,6 @@
             </nav>
         </div>
     </header>
-
-    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-content">
             <h2>Welcome to ODBIT</h2>
@@ -255,8 +57,6 @@
             <a href="#services" class="cta-btn">Explore Our Services</a>
         </div>
     </section>
-
-    <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <h2>About ODBIT</h2>
@@ -264,8 +64,6 @@
             <a href="#services" class="cta-btn">Learn More</a>
         </div>
     </section>
-
-    <!-- Services Section -->
     <section id="services" class="services">
         <div class="container">
             <h2>Our Services</h2>
@@ -285,8 +83,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
             <h2>Contact Us</h2>
@@ -298,23 +94,17 @@
             </form>
         </div>
     </section>
-
-    <!-- Footer Section -->
     <footer>
         <div class="container">
             <p>&copy; 2025 ODBIT. All rights reserved.</p>
         </div>
     </footer>
-
-    <!-- Cookie Generator Script -->
     <script src="cookieGenerator.js"></script>
     <script src="sentry_77839.js"></script>
-
     <script>
-        // Example JS for functionality
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Successful. View console log for more info.')
+            alert('Successful. View console log for more info.');
             console.log('Thank you for sending us a message! We will view it within 5 business days.');
         });
     </script>
