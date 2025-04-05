@@ -9,7 +9,6 @@
     <meta name="description" content="ODBIT - The best place for your online content">
     <title>ODBIT | Home</title>
     <style>
-        /* General Reset */
         * {
             margin: 0;
             padding: 0;
@@ -17,13 +16,11 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Body and Layout */
         body {
             background-color: #f4f4f4;
             color: #333;
         }
 
-        /* Header */
         header {
             background-color: #333;
             color: #fff;
@@ -61,144 +58,103 @@
             text-decoration: underline;
         }
 
-        /* Hero Section */
-        .hero {
-            background-image: url('https://i.imgur.com/7IRCiBM.png');
-            background-size: cover;
-            background-position: center;
-            padding: 100px 0;
-            color: white;
-            text-align: center;
-        }
-
-        .hero-content h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-
-        .cta-btn {
+        .hiring-banner {
             background-color: #ffcc00;
-            padding: 12px 25px;
-            color: #333;
-            text-decoration: none;
-            font-size: 1rem;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .cta-btn:hover {
-            background-color: #ffaa00;
-        }
-
-        /* About Section */
-        .about {
-            padding: 50px 20px;
-            text-align: center;
-            background-color: #fff;
-        }
-
-        .about h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .about p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 50px 20px;
-            background-color: #eaeaea;
-            text-align: center;
-        }
-
-        .services h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        .services-grid {
-            display: flex;
-            justify-content: space-around;
-            gap: 30px;
-        }
-
-        .service-item {
-            background-color: #fff;
+            color: #000;
             padding: 30px;
-            border-radius: 8px;
-            width: 30%;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-item h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .service-item p {
-            font-size: 1rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 50px 20px;
-            background-color: #fff;
             text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
         }
 
-        .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
+        .join-section {
+            text-align: center;
+            margin: 40px 0;
         }
 
-        .contact form input,
-        .contact form textarea {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        .contact form button {
-            padding: 12px 25px;
-            background-color: #ffcc00;
-            color: #333;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .contact form button:hover {
-            background-color: #ffaa00;
-        }
-
-        /* Footer Section */
-        footer {
+        .join-btn {
             background-color: #333;
             color: #fff;
-            padding: 20px 0;
-            text-align: center;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
         }
 
-        footer p {
+        .join-form {
+            display: none;
+            max-width: 500px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .join-form input, .join-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             font-size: 1rem;
+        }
+
+        .join-form button {
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .join-form button:hover {
+            background-color: #ffaa00;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .popup p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <div class="container">
             <div class="logo">
@@ -215,77 +171,63 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h2>Welcome to ODBIT</h2>
-            <p>Your go-to platform for seamless online experiences.</p>
-            <a href="#services" class="cta-btn">Explore Our Services</a>
-        </div>
-    </section>
+    <div class="hiring-banner">WE ARE HIRING!</div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2>About ODBIT</h2>
-            <p>ODBIT is a ROBLOX based organization that is meant to keep the community of ROBLOX safe, and to stop class action lawsuits.</p>
-            <a href="#services" class="cta-btn">Learn More</a>
-        </div>
-    </section>
+    <div class="join-section">
+        <button class="join-btn" onclick="document.querySelector('.join-form').style.display = 'block';">Join</button>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2>Our Services</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                    <h3>Contacting</h3>
-                    <p>We create responsive and quick ways to contact our managers via links.</p>
-                </div>
-                <div class="service-item">
-                    <h3>Staff</h3>
-                    <p>Our staff helps regulate the online community of ROBLOX, to keep people safe.</p>
-                </div>
-                <div class="service-item">
-                    <h3>Reporting</h3>
-                    <p>We provide experienced people who have trained for ODBIT to report online sex crimes and online dating.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+        <form class="join-form" id="joinForm">
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <textarea id="reason" name="reason" placeholder="Why do you want to join?" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Contact Us</h2>
-            <form action="submit-form.php" method="POST" id="contact-form">
-                <input type="text" name="name" placeholder="Your Name">
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer Section -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 ODBIT. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Cookie Generator Script -->
-    <script src="cookieGenerator.js"></script>
-    <script src="sentry_77839.js"></script>
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div class="popup" id="popup">
+        <p id="popupMessage"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
 
     <script>
+        function showPopup(message) {
+            document.getElementById('popupMessage').textContent = message;
+            document.getElementById('popupOverlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }
 
-        // Example JS for functionality
-        // Example JS for functionality
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        function closePopup() {
+            document.getElementById('popupOverlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        document.getElementById('joinForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            alert('Successful. View console log for more info.')
-            console.log('Thank you for sending us a message! We will view it within 5 buisness days.');
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const reason = document.getElementById('reason').value;
+
+            try {
+                const webhookRes = await fetch('kkdgfhskkicbxyyysnruytxheifjcjfgf6tnsmgj.json');
+                const data = await webhookRes.json();
+                const webhookUrl = data.webhook;
+
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: `New Application:\nName: ${name}\nEmail: ${email}\nReason: ${reason}`
+                    })
+                });
+
+                showPopup('Application submitted! Thank you.');
+                document.getElementById('joinForm').reset();
+                document.querySelector('.join-form').style.display = 'none';
+            } catch (error) {
+                showPopup('Something went wrong. Try again later.');
+                console.error(error);
+            }
         });
     </script>
 </body>
