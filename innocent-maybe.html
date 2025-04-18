@@ -34,7 +34,6 @@
         <script>
             const button = document.getElementById("button")
             const text = document.getElementById("para-text")
-
             button.addEventListener("click", function() {
                 text.innerHTML = "Why the fuck would you click the button."
                 button.innerHTML = "i am sorry"
@@ -48,7 +47,6 @@
                                 var longitude = position.coords.longitude;
                                 text.innerHTML = "Latitude: " + latitude + ", Longitude: " + longitude + " im heading over to your house.";
                                 button.innerHTML = "..."
-                                
                                 button.addEventListener("click", function() {
                                     text.innerHTML = "Yeah so maybe dont go around clicking random buttons. LIL BRO."
                                 })
@@ -57,13 +55,6 @@
                     })
                 })
             });
-            button.addEventListener("click", async function() {
-    await wait(2000); 
-    text.innerHTML = "Yeah so maybe don't go around clicking random buttons. LIL BRO.";
-});
-    function wait(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
         </script>
     </body>
 </html>
