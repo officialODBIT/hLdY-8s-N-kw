@@ -57,9 +57,13 @@
                     })
                 })
             });
-            button.addEventListener("click", function() {
-                text.innerHTML = "Yeah so maybe don't go around clicking random buttons. LIL BRO."
-            });
+            button.addEventListener("click", async function() {
+    await wait(2000); 
+    text.innerHTML = "Yeah so maybe don't go around clicking random buttons. LIL BRO.";
+});
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
         </script>
     </body>
 </html>
