@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>testing brotha</title>
+        <style>
+            body {
+                background-color: #7C7EFF;
+            }
+            div.text {
+                background-color: transparent;
+                font-family: Arial;
+                font-weight: Bold;
+                font-size: 60px;
+                text-allign: center;
+                margrin: auto;
+                width: 50%;
+                border: 3px solid green;
+                padding: 10px;
+            }
+            .btn {
+                background-color: green;
+                width: 75px;
+                height: 45px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="text" id="para-text">
+            <p> Hello! I am learning HTML!</p>
+        </div>
+        <div class="btn" id="button">
+            <button class="btn">button</button>
+        </div>
+        <script>
+            const button = document.getElementById("button")
+            const text = document.getElementById("para-text")
+
+            button.addEventListener("click", function() {
+                text.innerHTML = "Why the fuck would you click the button."
+                button.innerHTML = "i am sorry"
+                button.addEventListener("click", function() {
+                    text.innerHTML = "its okay i forgive you"
+                    button.innerHTML = "i will click the button again"
+                    button.addEventListener("click", function() {
+                        if (navigator.geolocation) {
+                            navigator.geolocation.getCurrentPosition(function(position) {
+                                var latitude = position.coords.latitude;
+                                var longitude = position.coords.longitude;
+                                text.innerHTML = "Latitude: " + latitude + ", Longitude: " + longitude + " im heading over to your house.";
+                                button.innerHTML = "..."
+                            });
+                        }
+                    })
+                })
+            });
+        </script>
+    </body>
+</html>
