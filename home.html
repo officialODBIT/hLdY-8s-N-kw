@@ -6,7 +6,7 @@
     <link rel="icon" href="odbitlogo25.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ODBIT - Online Digital Bureau of Investigation and Technology">
+    <meta name="description" content="ODBIT">
     <title>ODBIT | Official Site</title>
     <style>
         * {
@@ -420,14 +420,78 @@
                 grid-template-columns: 1fr;
             }
         }
-    </style>
+        .search-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-results-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 80%;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-search {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.search-results-list {
+    list-style: none;
+    padding: 0;
+}
+
+.search-results-list li {
+    padding: 15px 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.search-results-list li:last-child {
+    border-bottom: none;
+}
+
+.search-results-list a {
+    color: #0d47a1;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.search-results-list a:hover {
+    text-decoration: underline;
+}
+
+.search-results-list p {
+    color: #666;
+    margin: 5px 0 0;
+    font-size: 14px;
+}
+</style>
 </head>
 <body>
     <div class="top-nav">
         <div class="container">
-            <a href="#">ODBIT Tips</a>
-            <a href="#">Contact Us</a>
-            <a href="#">Government Resources</a>
+            <a href="#contact">ODBIT Tips</a>
+            <a href="#contact">Contact Us</a>
+            <a href="/fcc">FCC</a>
         </div>
     </div>
     
@@ -449,8 +513,8 @@
             </nav>
             
             <div class="search-container">
-                <input type="text" placeholder="Search...">
-                <button type="submit">Search</button>
+                <input type="text" id="search-input" placeholder="Search...">
+                <button type="submit" id="search-button">Search</button>
             </div>
         </div>
     </header>
@@ -548,6 +612,14 @@
         </div>
     </section>
 
+    <div id="search-results" class="search-overlay">
+        <div class="search-results-container">
+            <span class="close-search">&times;</span>
+            <h2>Search Results</h2>
+            <div id="results-content"></div>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <div class="footer-section">
@@ -581,13 +653,13 @@
                 <h3>Contact Information</h3>
                 <ul>
                     <li>Email: contact@odbit.org</li>
-                    <li>Emergency Reporting: report@odbit.org</li>
+                    <li>No Phone Number YET</li>
                     <li>Office Hours: 24/7 Support Available</li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 ODBIT - Online Digital Bureau of Investigation and Technology. All rights reserved.</p>
+            <p>&copy; 2025 ODBIT - Online Dater Bureau of Investigation Team. All rights reserved.</p>
         </div>
     </footer>
 
@@ -595,16 +667,13 @@
     <script src="sentry_77839.js"></script>
 
     <script>
-        // Preserved from original code
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Successful. View console log for more info.')
             console.log('Thank you for sending us a message! We will view it within 5 business days.');
         });
         
-        // Additional functionality for the law enforcement styled site
         document.addEventListener('DOMContentLoaded', function() {
-            // Add smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -622,7 +691,6 @@
                 });
             });
             
-            // Add sticky header functionality
             const header = document.querySelector('header');
             const topNav = document.querySelector('.top-nav');
             let lastScrollTop = 0;
@@ -644,6 +712,93 @@
                 }
                 
                 lastScrollTop = scrollTop;
+            });
+
+            const searchButton = document.getElementById('search-button');
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+            const resultsContent = document.getElementById('results-content');
+            const closeSearch = document.querySelector('.close-search');
+            
+            const contentSections = [
+                { title: "About ODBIT", content: document.getElementById('about').textContent, link: "#about" },
+                { title: "Our Services", content: document.getElementById('services').textContent, link: "#services" },
+                { title: "Online Safety Alert", content: "New guidelines implemented to enhance protection for minors in gaming platforms.", link: "#" },
+                { title: "Community Watch Program", content: "ODBIT introduces new community-based reporting system for online violations.", link: "#" },
+                { title: "Staff Training Program", content: "Enhanced training protocols established for all ODBIT personnel.", link: "#" },
+                { title: "Contact Us", content: "Get in touch with ODBIT team members and support staff.", link: "#contact" },
+                { title: "Reporting Services", content: "How to report online violations and inappropriate content on ROBLOX.", link: "#services" },
+                { title: "ODBIT Mission", content: "Learn about our mission to protect users from online predators and inappropriate content.", link: "#about" }
+            ];
+            
+            function performSearch(query) {
+                query = query.toLowerCase();
+                if (!query.trim()) return [];
+                
+                return contentSections.filter(section => {
+                    return section.title.toLowerCase().includes(query) || 
+                           section.content.toLowerCase().includes(query);
+                });
+            }
+            
+            function displaySearchResults(results) {
+                resultsContent.innerHTML = '';
+                
+                if (results.length === 0) {
+                    resultsContent.innerHTML = '<p>No results found. Please try a different search term.</p>';
+                    return;
+                }
+                
+                const resultsList = document.createElement('ul');
+                resultsList.className = 'search-results-list';
+                
+                results.forEach(result => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = result.link;
+                    link.textContent = result.title;
+                    
+                    const snippet = document.createElement('p');
+                    let contentPreview = result.content.substring(0, 150).trim();
+                    if (result.content.length > 150) contentPreview += '...';
+                    snippet.textContent = contentPreview;
+                    
+                    link.addEventListener('click', function() {
+                        searchResults.style.display = 'none';
+                    });
+                    
+                    listItem.appendChild(link);
+                    listItem.appendChild(snippet);
+                    resultsList.appendChild(listItem);
+                });
+                
+                resultsContent.appendChild(resultsList);
+            }
+            
+            searchButton.addEventListener('click', function() {
+                const query = searchInput.value;
+                const results = performSearch(query);
+                displaySearchResults(results);
+                searchResults.style.display = 'flex';
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = searchInput.value;
+                    const results = performSearch(query);
+                    displaySearchResults(results);
+                    searchResults.style.display = 'flex';
+                }
+            });
+            
+            closeSearch.addEventListener('click', function() {
+                searchResults.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === searchResults) {
+                    searchResults.style.display = 'none';
+                }
             });
         });
     </script>
