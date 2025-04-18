@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1311663690934021"
+     crossorigin="anonymous"></script>
+    <link rel="icon" href="odbitlogo25.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ODBIT - Online Digital Bureau of Investigation and Technology">
+    <title>ODBIT | Official Site</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header styles */
+        header {
+            background-color: #0d47a1;
+            color: #fff;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .top-nav {
+            background-color: #002171;
+            padding: 5px 0;
+        }
+        
+        .top-nav .container {
+            display: flex;
+            justify-content: flex-end;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .top-nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 0.9rem;
+        }
+        
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5px 20px;
+        }
+        
+        header .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        header .logo img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        header .logo h1 {
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+        
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 5px 0;
+        }
+        
+        header nav ul li a:hover {
+            border-bottom: 2px solid #fff;
+        }
+        
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-container input[type="text"] {
+            padding: 8px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .search-container button {
+            padding: 8px 12px;
+            background: #002171;
+            color: white;
+            border: none;
+            border-radius: 0 3px 3px 0;
+            cursor: pointer;
+        }
+        
+        /* Hero styles */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.imgur.com/7IRCiBM.png');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .cta-btn {
+            background-color: #ffcc00;
+            padding: 12px 25px;
+            color: #333;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 3px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+        
+        .cta-btn:hover {
+            background-color: #ffaa00;
+        }
+        
+        /* News section */
+        .news {
+            padding: 50px 20px;
+            background-color: #fff;
+        }
+        
+        .news .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .news h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid #0d47a1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .news-item {
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .news-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 20px;
+        }
+        
+        .news-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .news-content p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .news-content .date {
+            color: #0d47a1;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        /* About section */
+        .about {
+            padding: 50px 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .about .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid #0d47a1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .about p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        /* Services section */
+        .services {
+            padding: 50px 20px;
+            background-color: #fff;
+        }
+        
+        .services .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .services h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid #0d47a1;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-item {
+            background-color: #f5f5f5;
+            padding: 30px;
+            border-radius: 5px;
+            border-left: 5px solid #0d47a1;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .service-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-item h3 {
+            color: #0d47a1;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-item p {
+            font-size: 1rem;
+            color: #444;
+        }
+        
+        /* Contact section */
+        .contact {
+            padding: 50px 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .contact .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid #0d47a1;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .contact form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .contact form input,
+        .contact form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-size: 1rem;
+        }
+        
+        .contact form button {
+            padding: 12px 25px;
+            background-color: #0d47a1;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+        
+        .contact form button:hover {
+            background-color: #002171;
+        }
+        
+        /* Footer styles */
+        footer {
+            background-color: #002171;
+            color: #fff;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #ffcc00;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            border-top: 1px solid #333;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+            
+            header .logo {
+                margin-bottom: 15px;
+            }
+            
+            header nav ul {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .search-container {
+                margin-top: 15px;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .services-grid,
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="container">
+            <a href="#">ODBIT Tips</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Government Resources</a>
+        </div>
+    </div>
+    
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="https://i.imgur.com/Ovecnsu.png" alt="ODBIT Logo">
+                <h1>ODBIT</h1>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="/sign-in">Portal</a></li>
+                    <li><a href="/fcc">FCC</a></li>
+                </ul>
+            </nav>
+            
+            <div class="search-container">
+                <input type="text" placeholder="Search...">
+                <button type="submit">Search</button>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Online Digital Bureau of Investigation and Technology</h2>
+            <p>Your go-to platform to make ROBLOX better and keep online communities safe.</p>
+            <a href="#services" class="cta-btn">Our Mission</a>
+        </div>
+    </section>
+
+    <section class="news">
+        <div class="container">
+            <h2>Latest Updates</h2>
+            <div class="news-grid">
+                <div class="news-item">
+                    <img src="/api/placeholder/400/320" alt="Safety Alert">
+                    <div class="news-content">
+                        <span class="date">April 12, 2025</span>
+                        <h3>Online Safety Alert</h3>
+                        <p>New guidelines implemented to enhance protection for minors in gaming platforms.</p>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <img src="/api/placeholder/400/320" alt="Community Watch">
+                    <div class="news-content">
+                        <span class="date">April 5, 2025</span>
+                        <h3>Community Watch Program Launched</h3>
+                        <p>ODBIT introduces new community-based reporting system for online violations.</p>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <img src="/api/placeholder/400/320" alt="Training Program">
+                    <div class="news-content">
+                        <span class="date">March 28, 2025</span>
+                        <h3>Staff Training Program Expanded</h3>
+                        <p>Enhanced training protocols established for all ODBIT personnel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About ODBIT</h2>
+            <p>ODBIT is a ROBLOX based organization that is meant to keep the community of ROBLOX safe, and to stop class action lawsuits. Our mission is to protect users from online predators, inappropriate content, and other threats in digital environments.</p>
+            <p>Founded with the goal of creating safer online spaces, ODBIT works closely with platform administrators, law enforcement agencies, and community members to identify and address violations of community guidelines and legal regulations.</p>
+            <a href="#services" class="cta-btn">Learn More About Our Mission</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <h3>Contacting</h3>
+                    <p>We create responsive and quick ways to contact our managers via links to ensure immediate response to critical reports.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Staff</h3>
+                    <p>Our staff helps regulate the online community of ROBLOX, to keep people safe through active monitoring and intervention.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Reporting</h3>
+                    <p>We provide experienced people who have trained for ODBIT to report online sex crimes and online dating, ensuring prompt handling of serious violations.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Investigation</h3>
+                    <p>Our trained investigators examine reports thoroughly to ensure appropriate action is taken against policy violators.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Education</h3>
+                    <p>We provide resources to help users understand online safety and recognize potential threats in digital environments.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Community Support</h3>
+                    <p>Dedicated teams provide support to affected individuals and communities following incidents of online abuse.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form action="submit-form.php" method="POST" id="contact-form">
+                <input type="text" name="name" placeholder="Your Name">
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required rows="5"></textarea>
+                <button type="submit">Submit Report</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Safety Guidelines</a></li>
+                    <li><a href="#">Reporting Procedures</a></li>
+                    <li><a href="#">Training Materials</a></li>
+                    <li><a href="#">Community Standards</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Partners</h3>
+                <ul>
+                    <li><a href="#">ROBLOX</a></li>
+                    <li><a href="#">Online Safety Organizations</a></li>
+                    <li><a href="#">Law Enforcement Agencies</a></li>
+                    <li><a href="#">Educational Institutions</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <ul>
+                    <li>Email: contact@odbit.org</li>
+                    <li>Emergency Reporting: report@odbit.org</li>
+                    <li>Office Hours: 24/7 Support Available</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ODBIT - Online Digital Bureau of Investigation and Technology. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="cookieGenerator.js"></script>
+    <script src="sentry_77839.js"></script>
+
+    <script>
+        // Preserved from original code
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Successful. View console log for more info.')
+            console.log('Thank you for sending us a message! We will view it within 5 business days.');
+        });
+        
+        // Additional functionality for the law enforcement styled site
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === "#") return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add sticky header functionality
+            const header = document.querySelector('header');
+            const topNav = document.querySelector('.top-nav');
+            let lastScrollTop = 0;
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > 150) {
+                    header.style.position = 'fixed';
+                    header.style.top = '0';
+                    header.style.width = '100%';
+                    header.style.zIndex = '1000';
+                    topNav.style.display = 'none';
+                    document.body.style.paddingTop = header.offsetHeight + 'px';
+                } else {
+                    header.style.position = 'static';
+                    topNav.style.display = 'block';
+                    document.body.style.paddingTop = '0';
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+        });
+    </script>
+</body>
+</html>
