@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Text Editor</title>
+    <title>Document Editor</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -167,6 +167,7 @@
             outline: none;
             line-height: 1.6;
             font-size: 16px;
+            font-family: "Book Antiqua", Palatino, serif;
         }
 
         .status-bar {
@@ -640,7 +641,7 @@
     </div>
 
     <!-- Notification -->
-    <div id="notification" class="notification">Document saved successfully!</div>
+    <div id="notification" class="notification">Document saved</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -653,7 +654,7 @@
             const notification = document.getElementById('notification');
             
             // Initialize editor with default content
-            editor.innerHTML = '<p>Welcome to the Advanced Text Editor! Start typing here...</p>';
+            editor.innerHTML = '<p>This is a specialized document editor for ODBIT case documents! Start Typing.</p>';
             
             // Format buttons
             const boldBtn = document.getElementById('boldBtn');
