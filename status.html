@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -143,7 +144,7 @@
     });
 
     function checkWebsiteStatus() {
-        checkConnectivity("https://odbit.org", "status-website");
+        checkConnectivity("https://page.odbit.club", "status-website");
         checkConnectivity("https://odbit.org/status", "status-pages");
         checkConnectivity("https://odbit.org/login", "status-login");
         checkConnectivity("https://odbit.org/dash", "status-dash");
@@ -184,5 +185,268 @@
     }
 </script>
 
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ODBIT Status</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .status-overview {
+            background: #dc3545;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .status-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: #f8f9fa;
+            padding: 12px 20px;
+            border-bottom: 1px solid #e9ecef;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f1f3f4;
+        }
+
+        .service-item:last-child {
+            border-bottom: none;
+        }
+
+        .service-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-critical {
+            background: #dc3545;
+            color: white;
+        }
+
+        .status-operational {
+            background: #28a745;
+            color: white;
+        }
+
+        .history-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .history-text {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .impact-header {
+            background: #dc3545;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .impact-details {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+        }
+
+        .impact-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .impact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .impact-label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .impact-value {
+            color: #6c757d;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">ODBIT</div>
+        </div>
+
+        <div class="status-overview">
+            All Systems Critical - Updated a few seconds ago
+        </div>
+
+        <div class="status-section">
+            <div class="section-header">Online</div>
+            <div class="service-item">
+                <div class="service-name">Site</div>
+                <div class="status-badge status-critical">Critical</div>
+            </div>
+            <div class="service-item">
+                <div class="service-name">Login</div>
+                <div class="status-badge status-critical">Critical</div>
+            </div>
+            <div class="service-item">
+                <div class="service-name">Dashboard</div>
+                <div class="status-badge status-critical">Critical</div>
+            </div>
+        </div>
+
+        <div class="status-section">
+            <div class="section-header">Domain</div>
+            <div class="service-item">
+                <div class="service-name">DNS</div>
+                <div class="status-badge status-operational">Operational</div>
+            </div>
+            <div class="service-item">
+                <div class="service-name">DNSSEC</div>
+                <div class="status-badge status-operational">Operational</div>
+            </div>
+            <div class="service-item">
+                <div class="service-name">DNS Configuration</div>
+                <div class="status-badge status-operational">Operational</div>
+            </div>
+        </div>
+
+        <div class="status-section">
+            <div class="section-header">Other</div>
+            <div class="service-item">
+                <div class="service-name">News</div>
+                <div class="status-badge status-critical">Critical</div>
+            </div>
+            <div class="service-item">
+                <div class="service-name">Roblox</div>
+                <div class="status-badge status-operational">Operational</div>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <div class="history-text">History (Last 30 days)</div>
+            
+            <div class="impact-header">Short term impact to players</div>
+            <div class="impact-details">
+                <div class="impact-item">
+                    <div class="impact-label">Incident Status</div>
+                    <div class="impact-value">Ongoing</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-label">Components</div>
+                    <div class="impact-value">-</div>
+                </div>
+                <div class="impact-item">
+                    <div class="impact-label">Locations</div>
+                    <div class="impact-value">Website, Mobile App, Xbox App Service, Avatar</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <a href="https://page.odbit.club/" class="btn">Site</a>
+            <a href="https://status.odbit.club/" class="btn btn-secondary">History</a>
+        </div>
+    </div>
 </body>
 </html>
