@@ -1,10 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ODBIT | Sign In</title>
-     <style>
+    <link rel="icon" href="odbitlogo25.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ODBIT - The best place for your online content">
+    <title>ODBIT | Sign In</title>
+    <style>
         /* General Reset */
         * {
             margin: 0;
@@ -255,103 +258,182 @@
     </style>
 </head>
 <body>
-  <h2>Sign In</h2>
-  <form id="sign-in-form">
-    <label for="specID">SpecID *</label><br />
-    <input type="text" id="specID" name="specID" required /><br />
-    <label for="pin">PIN *</label><br />
-    <input type="password" id="pin" name="pin" required /><br />
-    <input type="checkbox" id="show-password" />
-    <label for="show-password">Show Text</label><br />
-    <button type="submit">Sign In</button>
-  </form>
 
-  <div id="popup" style="display:none; color:red;"></div>
-  <div id="terminated-popup" style="display:none; color:red;">
-    <h3>Terminated</h3>
-    <p>You have been terminated for not following ODBIT TOS.</p>
-  </div>
-  <div id="success-popup" style="display:none; color:green;">
-    <h3>Success</h3>
-    <p>Login successful. Welcome!</p>
-  </div>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>ODBIT</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="https://www.odbit.org/home">Home</a></li>
+                    <li><a href="https://www.odbit.org/status">Status</a></li>
+                    <li><a href="https://www.odbit.org/resources">Resources</a></li>
+                    <li><a href="https://www.odbit.org/social">Social</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-    import {
-      getFirestore,
-      collection,
-      getDocs,
-    } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+    <div class="form-container">
+        <div class="form-content">
+            <h2>Sign In</h2>
+            <form id="sign-in-form">
+                <label for="specID">SpecID <span style="color: red;">*</span></label>
+                <input type="text" id="specID" name="specID" required>
 
-    // Your Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyDb8ffuJWKuKk64IuSoHuEQI60B_0OOW3s",
-      authDomain: "odbit-site-database.firebaseapp.com",
-      projectId: "odbit-site-database",
-      storageBucket: "odbit-site-database.firebasestorage.app",
-      messagingSenderId: "673458512809",
-      appId: "1:673458512809:web:eeff2dca57860178481ab8",
-    };
+                <label for="pin">PIN <span style="color: red;">*</span></label>
+                <input type="password" id="pin" name="pin" required>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+                <div class="show-text">
+                    <input type="checkbox" id="show-password" onclick="togglePassword()"> <label for="show-password">Show Text</label>
+                </div>
 
-    // Show/hide PIN text
-    document.getElementById("show-password").addEventListener("change", (e) => {
-      const pinInput = document.getElementById("pin");
-      pinInput.type = e.target.checked ? "text" : "password";
-    });
+                <button type="submit" class="submit-btn">Sign In</button>
+                <button type="button" class="request-account" onclick="requestAccount()">Request an Account</button>
+            </form>
+        </div>
+    </div>
 
-    async function fetchSpecData() {
-      try {
-        const querySnapshot = await getDocs(collection(db, "users"));
-        return querySnapshot.docs.map((doc) => doc.data());
-      } catch (error) {
-        console.error("Error fetching data from Firestore:", error);
-        return [];
-      }
-    }
+    <div class="popup" id="popup">
+        <p>Incorrect or not added to system</p>
+        <button onclick="closePopup()">OK</button>
+    </div>
 
-    function showPopup(message) {
-      const popup = document.getElementById("popup");
-      popup.textContent = message;
-      popup.style.display = "block";
-    }
+    <div class="message-popup" id="message-popup">
+        <p>No ongoing investigations</p>
+        <p>No ongoing cases</p>
+        <button onclick="closeMessagePopup()">Close</button>
+    </div>
 
-    function hideAllPopups() {
-      document.getElementById("popup").style.display = "none";
-      document.getElementById("terminated-popup").style.display = "none";
-      document.getElementById("success-popup").style.display = "none";
-    }
+    <div class="error-popup" id="error-popup">
+        <p>Error 63 <br> 0_xx0002</p>
+        <p>Please try again later.</p>
+        <p>ODBIT &copy; 2025-2026. All rights reserved.</p>
+        <button onclick="closeErrorPopup()">Close</button>
+    </div>
 
-    document
-      .getElementById("sign-in-form")
-      .addEventListener("submit", async (event) => {
-        event.preventDefault();
-        hideAllPopups();
+    <div class="success-popup" id="success-popup">
+        <p>Info: This is a successful login attempt. Your session will last until closed or refreshed.</p>
+        <p>Cases ongoing: (0)</p>
+        <br><br>
+        <p>Investigations ongoing (0)</p>
+       <!-- <p><a href="https://www.odbit.org/5196end90" style="color: #001a33; text-decoration: none; font-weight: bold;">519648846290 -- March 8th</a></p> -->
+        <br><br>
+        <p>History: (43)</p>
+        <p><a href="https://www.odbit.org/403.html" class="archive-link">Archive</a></p>
+        <button onclick="closeSuccessPopup()">Close</button>
+        <div class="redirect-link" id="redirect-link">
+            <p><a href="https://www.odbit.org/redirectemail" target="_blank">Go to Redirect Email</a></p>
+        </div>
+    </div>
+    <div class="termination-popup" id="terminated-popup">
+    <div class="termination-header">Terminated</div>
+    <div class="termination-description">
+        You have been terminated for not following ODBIT TOS, you have been terminated from working with ODBIT
+    </div>
+    
+    <div class="violations-box">
+        <div class="violation-item">
+            <div class="violation-reason">Reason: Harassment</div>
+            <div class="violation-content">Content: "U sexual bitch"</div>
+        </div>
+        <div class="violation-item">
+            <div class="violation-reason">Reason: Harassment + Defamation</div>
+            <div class="violation-content">Content: "Stop abusing kids ):"</div>
+        </div>
+    </div>
+    
+    <div class="termination-note">
+        Note: You have been DM'd more info about your ban. Please read it to get the most out of the info.
+    </div>
+    
+    <div class="final-notice">
+        Your account will not be restored.
+    </div>
+</div>
+    <script src="sentry_77839.js"></script>
+    <script>
+        //status checker
+        console.log('Loaded 3000');
+            console.log('loaded sign-in');
+        // actual js code
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            alert('right clicking is disabled lil bro');
+        });
 
-        const specID = document.getElementById("specID").value.trim();
-        const pin = document.getElementById("pin").value.trim();
-
-        const specData = await fetchSpecData();
-
-        const user = specData.find(
-          (item) => item.spec_id === specID && item.pin === pin
-        );
-
-        if (user) {
-          if (user.spec_id === "579284628571947" && user.pin === "9478") {
-            document.getElementById("terminated-popup").style.display = "block";
-          } else {
-            document.getElementById("success-popup").style.display = "block";
-          }
-        } else {
-          showPopup(
-            "Incorrect specID or PIN. This may also be because you have been terminated."
-          );
+        function showPopup(message) {
+            var popup = document.getElementById('popup');
+            popup.querySelector('p').textContent = message;
+            popup.style.display = 'block';
         }
-      });
-  </script>
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        function requestAccount() {
+            alert("Account request is disabled, please contact support.");
+        }
+
+        // Fetch JSON data from kkdhttsje.json
+        async function fetchSpecData() {
+            try {
+                const response = await fetch('kkdhttsje.json');
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching SpecIDs and PINs:', error);
+                return [];
+            }
+        }
+
+        document.getElementById('sign-in-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const specID = document.getElementById('specID').value.trim();
+    const pin = document.getElementById('pin').value.trim();
+
+    const specData = await fetchSpecData();
+    console.log('Entered:', specID, pin);
+    console.log('Fetched users:', specData);
+
+    const user = specData.find(item => item.spec_id === specID && item.pin === pin);
+
+    if (user) {
+        if (user.spec_id === "579284628571947" && user.pin === "9478") {
+            document.getElementById('terminated-popup').style.display = 'block';
+        } else {
+            document.getElementById('success-popup').style.display = 'block';
+        }
+    } else {
+        showPopup("Incorrect specID or PIN. This may also be because you have been terminated. (Error 06X39 -- Possible 06XTERM)");
+    }
+});
+
+
+        function togglePassword() {
+            var pinInput = document.getElementById("pin");
+            if (pinInput.type === "password") {
+                pinInput.type = "text";
+            } else {
+                pinInput.type = "password";
+            }
+        }
+
+        function closeMessagePopup() {
+            document.getElementById('message-popup').style.display = 'none';
+        }
+
+        function closeErrorPopup() {
+            document.getElementById('error-popup').style.display = 'none';
+        }
+
+        function closeSuccessPopup() {
+            document.getElementById('success-popup').style.display = 'none';
+        }
+    </script>
+
 </body>
 </html>
