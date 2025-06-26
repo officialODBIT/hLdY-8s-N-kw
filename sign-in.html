@@ -253,6 +253,11 @@
             <p><a href="https://www.odbit.org/redirectemail" target="_blank">Go to Redirect Email</a></p>
         </div>
     </div>
+    <div class="error-popup" id="terminated-popup">
+    <p>Account terminated</p>
+    <p>Your account has been terminated due to breaking ODBIT TOS. You can appeal in your 30 day grace period.</p>
+    <button onclick="document.getElementById('terminated-popup').style.display = 'none';">Close</button>
+    </div>
     <script src="sentry_77839.js"></script>
     <script>
         //status checker
@@ -300,10 +305,15 @@
             const user = specData.find(item => item.spec_id === specID && item.pin === pin);
 
             if (user) {
-                document.getElementById('success-popup').style.display = 'block';
-            } else {
-                showPopup("Incorrect SpecID or PIN");
-            }
+    if (user.spec_id === "579284628571947" && user.pin === "9478") {
+        document.getElementById('terminated-popup').style.display = 'block';
+    } else {
+        document.getElementById('success-popup').style.display = 'block';
+    }
+} else {
+    showPopup("Incorrect SpecID or PIN");
+}
+
         });
 
         function togglePassword() {
