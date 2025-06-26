@@ -182,6 +182,7 @@
             color: #ffcc00;
         }
         .termination-popup {
+            display: none;
     width: 800px;
     height: 675px;
     background-color: #4a4a4a;
@@ -191,6 +192,11 @@
     box-sizing: border-box;
     color: white;
     font-family: Arial, sans-serif;
+              position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
 }
 
 .termination-header {
@@ -383,25 +389,28 @@
         }
 
         document.getElementById('sign-in-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
+    event.preventDefault();
 
-            const specID = document.getElementById('specID').value;
-            const pin = document.getElementById('pin').value;
+    const specID = document.getElementById('specID').value.trim();
+    const pin = document.getElementById('pin').value.trim();
 
-            const specData = await fetchSpecData();
-            const user = specData.find(item => item.spec_id === specID && item.pin === pin);
+    const specData = await fetchSpecData();
+    console.log('Entered:', specID, pin);
+    console.log('Fetched users:', specData);
 
-            if (user) {
-    if (user.spec_id === "579284628571947" && user.pin === "9478") {
-        document.getElementById('terminated-popup').style.display = 'block';
+    const user = specData.find(item => item.spec_id === specID && item.pin === pin);
+
+    if (user) {
+        if (user.spec_id === "579284628571947" && user.pin === "9478") {
+            document.getElementById('terminated-popup').style.display = 'block';
+        } else {
+            document.getElementById('success-popup').style.display = 'block';
+        }
     } else {
-        document.getElementById('success-popup').style.display = 'block';
+        showPopup("Incorrect specID or PIN. This may also be because you have been terminated. (Error 06X39 -- Possible 06XTERM)");
     }
-} else {
-    showPopup("Incorrect specID or PIN. This may also be because you have been terminated. (Error 06X39 -- Possible 06XTERM)");
-}
+});
 
-        });
 
         function togglePassword() {
             var pinInput = document.getElementById("pin");
