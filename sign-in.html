@@ -181,6 +181,73 @@
         .redirect-link a:hover {
             color: #ffcc00;
         }
+        .termination-popup {
+    width: 800px;
+    height: 675px;
+    background-color: #4a4a4a;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    box-sizing: border-box;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.termination-header {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.termination-description {
+    font-size: 16px;
+    color: white;
+    margin-bottom: 30px;
+    line-height: 1.4;
+}
+
+.violations-box {
+    background-color: #525252;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    padding: 20px;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.violation-item {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.violation-item:last-child {
+    margin-bottom: 0;
+}
+
+.violation-reason {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.violation-content {
+    margin-left: 10px;
+    font-style: italic;
+    color: #e0e0e0;
+}
+
+.termination-note {
+    font-size: 15px;
+    color: white;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.final-notice {
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+}
     </style>
 </head>
 <body>
@@ -253,11 +320,31 @@
             <p><a href="https://www.odbit.org/redirectemail" target="_blank">Go to Redirect Email</a></p>
         </div>
     </div>
-    <div class="error-popup" id="terminated-popup">
-    <p>Account terminated</p>
-    <p>Your account has been terminated due to breaking ODBIT TOS. You can appeal in your 30 day grace period.</p>
-    <button onclick="document.getElementById('terminated-popup').style.display = 'none';">Close</button>
+    <div class="termination-popup">
+    <div class="termination-header">Terminated</div>
+    <div class="termination-description">
+        You have been terminated for not following ODBIT TOS, you have been terminated from working with ODBIT
     </div>
+    
+    <div class="violations-box">
+        <div class="violation-item">
+            <div class="violation-reason">Reason: Harassment</div>
+            <div class="violation-content">Content: "U sexual bitch"</div>
+        </div>
+        <div class="violation-item">
+            <div class="violation-reason">Reason: Harassment + Defamation</div>
+            <div class="violation-content">Content: "Stop abusing kids ):"</div>
+        </div>
+    </div>
+    
+    <div class="termination-note">
+        Note: You have been DM'd more info about your ban. Please read it to get the most out of the info.
+    </div>
+    
+    <div class="final-notice">
+        Your account will not be restored.
+    </div>
+</div>
     <script src="sentry_77839.js"></script>
     <script>
         //status checker
