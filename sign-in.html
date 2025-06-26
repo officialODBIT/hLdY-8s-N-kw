@@ -351,6 +351,25 @@
         Your account will not be restored.
     </div>
 </div>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDb8ffuJWKuKk64IuSoHuEQI60B_0OOW3s",
+    authDomain: "odbit-site-database.firebaseapp.com",
+    projectId: "odbit-site-database",
+    storageBucket: "odbit-site-database.firebasestorage.app",
+    messagingSenderId: "673458512809",
+    appId: "1:673458512809:web:eeff2dca57860178481ab8"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
     <script src="sentry_77839.js"></script>
     <script>
         //status checker
@@ -378,15 +397,15 @@
 
         // Fetch JSON data from kkdhttsje.json
         async function fetchSpecData() {
-            try {
-                const response = await fetch('kkdhttsje.json');
-                const data = await response.json();
-                return data;
-            } catch (error) {
-                console.error('Error fetching SpecIDs and PINs:', error);
-                return [];
-            }
-        }
+    try {
+        const snapshot = await db.collection("users").get();
+        return snapshot.docs.map(doc => doc.data());
+    } catch (error) {
+        console.error("Error fetching data from Firestore:", error);
+        return [];
+    }
+}
+
 
         document.getElementById('sign-in-form').addEventListener('submit', async function(event) {
     event.preventDefault();
