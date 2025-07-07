@@ -376,102 +376,96 @@
     </div>
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-        
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyDmDscrKr_o5tGkqF6pMVlFArEAYmjFyA8",
-            authDomain: "odbit-nda.firebaseapp.com",
-            projectId: "odbit-nda",
-            storageBucket: "odbit-nda.firebasestorage.app",
-            messagingSenderId: "513112285086",
-            appId: "1:513112285086:web:76850de8de0c57ea2ec08f"
-        };
-        
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
-        // Make functions available globally
-        window.submitNDA = async function() {
-            const ndaId = document.getElementById('ndaId').value.trim();
-            const agreeCheckbox = document.getElementById('agreeCheckbox');
-            const loadingDiv = document.getElementById('loading');
-            const errorDiv = document.getElementById('errorMessage');
-            const submitBtn = document.getElementById('submitBtn');
-            
-            // Reset error message
-            errorDiv.style.display = 'none';
-            errorDiv.textContent = '';
-            
-            // Validate input
-            if (!ndaId) {
-                showError('Please enter a valid NDA Data ID');
-                return;
-            }
-            
-            if (!agreeCheckbox.checked) {
-                showError('Please check the agreement checkbox to proceed');
-                return;
-            }
-            
-            // Show loading
-            loadingDiv.style.display = 'block';
-            submitBtn.disabled = true;
-            
-            try {
-                // Query Firebase for the NDA ID
-                const docRef = doc(db, 'ndaid', ndaId);
-                const docSnap = await getDoc(docRef);
-                
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    
-                    // Check if all required fields have string values
-                    let allFieldsFilled = true;
-                    for (const [key, value] of Object.entries(data)) {
-                        if (typeof value !== 'string' || value.trim() === '') {
-                            allFieldsFilled = false;
-                            break;
-                        }
-                    }
-                    
-                    if (allFieldsFilled) {
-                        // Success - clear page and show success message
-                        document.querySelector('.container').innerHTML = `
-                            <div class="success-message" style="display: block;">
-                                <p>✓ NDA signed. You are all good!</p>
-                            </div>
-                        `;
-                    } else {
-                        showError('NDA Data ID exists but required fields are not properly filled');
-                    }
-                } else {
-                    showError('Invalid NDA Data ID. Please check your ID and try again.');
-                }
-            } catch (error) {
-                console.error('Error checking NDA ID:', error);
-                showError('Error verifying NDA Data ID. Please try again.');
-            } finally {
-                loadingDiv.style.display = 'none';
-                submitBtn.disabled = false;
-            }
-        };
-        
-        function showError(message) {
-            const errorDiv = document.getElementById('errorMessage');
-            errorDiv.textContent = message;
-            errorDiv.style.display = 'block';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDmDscrKr_o5tGkqF6pMVlFArEAYmjFyA8",
+        authDomain: "odbit-nda.firebaseapp.com",
+        projectId: "odbit-nda",
+        storageBucket: "odbit-nda.firebasestorage.app",
+        messagingSenderId: "513112285086",
+        appId: "1:513112285086:web:76850de8de0c57ea2ec08f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.submitNDA = async function () {
+        const ndaId = document.getElementById('ndaId').value.trim();
+        const agreeCheckbox = document.getElementById('agreeCheckbox');
+        const loadingDiv = document.getElementById('loading');
+        const errorDiv = document.getElementById('errorMessage');
+        const submitBtn = document.getElementById('submitBtn');
+
+        errorDiv.style.display = 'none';
+        errorDiv.textContent = '';
+
+        if (!ndaId) {
+            showError('Please enter a valid NDA Data ID');
+            return;
         }
-        
-        // Add enter key support for the input field
-        document.getElementById('ndaId').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                window.submitNDA();
+
+        if (!agreeCheckbox.checked) {
+            showError('Please check the agreement checkbox to proceed');
+            return;
+        }
+
+        loadingDiv.style.display = 'block';
+        submitBtn.disabled = true;
+
+        try {
+            const querySnapshot = await getDocs(collection(db, 'ndaid'));
+            let foundDoc = null;
+
+            querySnapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                if (data.id === ndaId) {
+                    foundDoc = data;
+                }
+            });
+
+            if (foundDoc) {
+                let allFieldsFilled = true;
+                for (const [key, value] of Object.entries(foundDoc)) {
+                    if (typeof value !== 'string' || value.trim() === '') {
+                        allFieldsFilled = false;
+                        break;
+                    }
+                }
+
+                if (allFieldsFilled) {
+                    document.querySelector('.container').innerHTML = `
+                        <div class="success-message" style="display: block;">
+                            <p>✓ NDA signed. You are all good!</p>
+                        </div>
+                    `;
+                } else {
+                    showError('NDA Data ID exists but required fields are not properly filled');
+                }
+            } else {
+                showError('Invalid NDA Data ID. Please check your ID and try again.');
             }
-        });
-    </script>
+        } catch (error) {
+            console.error('Error checking NDA ID:', error);
+            showError('Error verifying NDA Data ID. Please try again.');
+        } finally {
+            loadingDiv.style.display = 'none';
+            submitBtn.disabled = false;
+        }
+    };
+
+    function showError(message) {
+        const errorDiv = document.getElementById('errorMessage');
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+    }
+
+    document.getElementById('ndaId').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            window.submitNDA();
+        }
+    });
+</script>
 </body>
 </html>
