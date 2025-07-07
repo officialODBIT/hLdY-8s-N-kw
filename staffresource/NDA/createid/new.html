@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add NDA Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 40px;
+            color: #333;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .error {
+            color: #e74c3c;
+        }
+        .success {
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Add NDA Document</h2>
+    <label for="docId">Document ID (Firestore ID):</label>
+    <input type="text" id="docId" placeholder="E.g. abc123">
+
+    <label for="customId">ID Field (string value):</label>
+    <input type="text" id="customId" placeholder="E.g. NDA-2025-XYZ">
+
+    <button onclick="addDocument()">Add Document</button>
+
+    <div class="message" id="message"></div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDmDscrKr_o5tGkqF6pMVlFArEAYmjFyA8",
+        authDomain: "odbit-nda.firebaseapp.com",
+        projectId: "odbit-nda",
+        storageBucket: "odbit-nda.firebasestorage.app",
+        messagingSenderId: "513112285086",
+        appId: "1:513112285086:web:76850de8de0c57ea2ec08f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window.addDocument = async function () {
+        const docId = document.getElementById('docId').value.trim();
+        const customId = document.getElementById('customId').value.trim();
+        const msg = document.getElementById('message');
+
+        msg.textContent = '';
+        msg.className = 'message';
+
+        if (!docId || !customId) {
+            msg.textContent = "Both fields are required.";
+            msg.classList.add('error');
+            return;
+        }
+
+        try {
+            await setDoc(doc(db, "ndaid", docId), {
+                id: customId
+            });
+
+            msg.textContent = "Document successfully added!";
+            msg.classList.add('success');
+        } catch (error) {
+            console.error("Error adding document:", error);
+            msg.textContent = "Failed to add document.";
+            msg.classList.add('error');
+        }
+    };
+</script>
+
+</body>
+</html>
